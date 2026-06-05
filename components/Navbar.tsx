@@ -94,7 +94,7 @@ export default function Navbar() {
             {open ? <X size={22} /> : <Menu size={22} />}
           </button>
 
-          {/* Right — icons */}
+          {/* Right — icons (always visible) */}
           <div className="flex items-center gap-0.5 md:gap-1">
             <CurrencyDropdown />
 
@@ -110,7 +110,7 @@ export default function Navbar() {
             {user ? (
               <div ref={userRef} className="relative">
                 <button onClick={() => setShowUserMenu(!showUserMenu)}
-                  className="flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-white/70 hover:text-white transition-colors"
+                  className="flex items-center gap-2 px-2 md:px-3 py-2 rounded-xl text-sm text-white/70 hover:text-white transition-colors"
                   style={{ background: "rgba(232,121,249,0.08)", border: "1px solid rgba(232,121,249,0.15)" }}>
                   <div className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white"
                     style={{ background: "linear-gradient(90deg,#e879f9,#f43f8f)" }}>
@@ -149,7 +149,7 @@ export default function Navbar() {
               </button>
             )}
 
-            {/* Wishlist */}
+            {/* Wishlist — always visible */}
             <Link href="/wishlist" className="relative p-2">
               <Heart size={20} className="text-white/70 hover:text-white transition-colors" />
               {wishlist.length > 0 && (
@@ -160,7 +160,7 @@ export default function Navbar() {
               )}
             </Link>
 
-            {/* Cart */}
+            {/* Cart — always visible */}
             <Link href="/cart" className="relative p-2">
               <ShoppingBag size={20} className="text-white/70 hover:text-white transition-colors" />
               {count > 0 && (
@@ -170,6 +170,11 @@ export default function Navbar() {
                 </span>
               )}
             </Link>
+
+            {/* Hamburger — mobile only */}
+            <button className="md:hidden text-white/60 hover:text-white p-1 ml-1" onClick={() => setOpen(!open)}>
+              {open ? <X size={22} /> : <Menu size={22} />}
+            </button>
           </div>
         </div>
 
