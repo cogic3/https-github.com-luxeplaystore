@@ -12,7 +12,7 @@ export default function Tracking() {
   }
 
   return (
-    <div className="min-h-screen pt-28 pb-24 px-6 max-w-xl mx-auto">
+    <div className="min-h-screen pt-24 md:pt-28 pb-24 px-4 md:px-6 max-w-xl mx-auto">
       <p className="text-xs uppercase tracking-[0.4em] mb-2" style={{ color: "#e879f9" }}>Where&apos;s My Order?</p>
       <h1 className="text-4xl md:text-5xl font-bold mb-4"><span className="gradient-text">Track Order</span></h1>
       <p className="text-white/50 mb-12">Enter your Telegram username and we&apos;ll look up your order status.</p>

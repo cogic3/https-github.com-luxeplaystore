@@ -1,6 +1,6 @@
 export default function Privacy() {
   return (
-    <div className="min-h-screen pt-28 pb-24 px-6 max-w-3xl mx-auto">
+    <div className="min-h-screen pt-24 md:pt-28 pb-24 px-4 md:px-6 max-w-3xl mx-auto">
       <p className="text-xs uppercase tracking-[0.4em] mb-2" style={{ color: "#e879f9" }}>Legal</p>
       <h1 className="text-4xl font-bold mb-10"><span className="gradient-text">Privacy Policy</span></h1>
       <div className="flex flex-col gap-8 text-white/60 text-sm leading-relaxed">

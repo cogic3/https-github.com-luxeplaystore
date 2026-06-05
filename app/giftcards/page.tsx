@@ -9,7 +9,7 @@ const giftCards = [
 
 export default function GiftCards() {
   return (
-    <div className="min-h-screen pt-28 pb-24 px-6 max-w-3xl mx-auto">
+    <div className="min-h-screen pt-24 md:pt-28 pb-24 px-4 md:px-6 max-w-3xl mx-auto">
       <p className="text-xs uppercase tracking-[0.4em] mb-2" style={{ color: "#e879f9" }}>Give the Gift of Pleasure</p>
       <h1 className="text-4xl md:text-5xl font-bold mb-4"><span className="gradient-text">Gift Cards</span></h1>
       <p className="text-white/50 mb-12">Purchase a LuxePlay gift card for someone special. Redeemable on any product.</p>

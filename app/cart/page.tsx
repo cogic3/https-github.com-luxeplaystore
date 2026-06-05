@@ -53,8 +53,8 @@ export default function Cart() {
   }
 
   return (
-    <div className="min-h-screen pt-20 md:pt-28 pb-24 px-4 md:px-6 max-w-5xl mx-auto">
-      <h1 className="text-4xl font-bold mb-10"><span className="gradient-text">Order Receipt</span></h1>
+    <div className="min-h-screen pt-24 md:pt-28 pb-24 px-4 md:px-6 max-w-5xl mx-auto">
+      <h1 className="text-3xl md:text-4xl font-bold mb-6 md:mb-10"><span className="gradient-text">Order Receipt</span></h1>
 
       <div className="grid md:grid-cols-2 gap-8">
         {/* Left */}
