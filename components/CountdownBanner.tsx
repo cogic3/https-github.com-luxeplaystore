@@ -24,8 +24,8 @@ export default function CountdownBanner() {
   }, []);
 
   return (
-    <div className="fixed top-0 inset-x-0 z-[60] w-full py-2.5 px-4 text-center text-xs font-semibold flex items-center justify-center gap-3 flex-wrap"
-      style={{ background: "linear-gradient(90deg, #e879f9, #f43f8f)", color: "#000", fontVariantNumeric: "tabular-nums" }}>
+    <div className="fixed top-0 inset-x-0 z-[60] w-full py-2 px-4 text-center text-xs font-semibold flex items-center justify-center gap-2 flex-wrap"
+      style={{ background: "linear-gradient(90deg, #e879f9, #f43f8f)", color: "#000", fontVariantNumeric: "tabular-nums", minHeight: "36px" }}>
       <span>🔥 LIMITED TIME OFFER — Up to 20% OFF today only!</span>
       {mounted && (
         <span className="flex items-center gap-1 font-bold">

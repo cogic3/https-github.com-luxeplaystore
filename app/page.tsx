@@ -61,7 +61,7 @@ export default function Home() {
     <div className="min-h-screen flex flex-col">
 
       {/* Hero */}
-      <section className="flex-1 flex flex-col items-center justify-center text-center px-6 pt-32 pb-20 md:pt-44 md:pb-28 relative overflow-hidden">
+      <section className="flex-1 flex flex-col items-center justify-center text-center px-6 pt-36 pb-20 md:pt-44 md:pb-28 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none"
           style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(232,121,249,0.25) 0%, transparent 55%), radial-gradient(ellipse at 20% 80%, rgba(244,63,143,0.2) 0%, transparent 50%), radial-gradient(ellipse at 80% 60%, rgba(251,146,60,0.1) 0%, transparent 40%)" }} />
         <div className="absolute inset-0 pointer-events-none opacity-[0.04]"

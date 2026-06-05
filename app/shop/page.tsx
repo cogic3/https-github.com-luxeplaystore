@@ -100,7 +100,7 @@ export default function Shop() {
   }
 
   return (
-    <div className="min-h-screen pt-24 md:pt-32 pb-24 px-4 md:px-6 max-w-6xl mx-auto">
+    <div className="min-h-screen pt-28 md:pt-32 pb-24 px-4 md:px-6 max-w-6xl mx-auto">
       <p className="text-xs uppercase tracking-[0.4em] text-white/40 mb-2">Our Collection</p>
       <h1 className="text-4xl md:text-5xl font-bold mb-8"><span className="gradient-text">Shop</span></h1>
 
