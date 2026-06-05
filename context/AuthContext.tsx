@@ -46,7 +46,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       options: { data: { name } },
     });
     if (error) return error.message;
-    // If session is returned directly, user is signed in (email confirmation disabled)
     if (data.session) return null;
     return "__confirm__";
   }
