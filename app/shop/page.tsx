@@ -127,25 +127,24 @@ export default function Shop() {
         </div>
       )}
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5">
         {filtered.map(p => {
           const isWished = wishlist.includes(p.id);
           return (
-            <div key={p.id} id={String(p.id)} className="card p-4 flex flex-col group">
-              <div className="relative w-full aspect-square rounded-xl overflow-hidden mb-3 cursor-pointer"
+            <div key={p.id} id={String(p.id)} className="card p-3 md:p-4 flex flex-col group">
+              <div className="relative w-full aspect-square rounded-xl overflow-hidden mb-2 cursor-pointer"
                 style={{ background: "rgba(232,121,249,0.05)" }} onClick={() => { setQuickView(p); addRecentlyViewed(p); }}>
                 {p.badge && (
-                  <span className="absolute top-2 left-2 z-10 text-[10px] font-bold px-2 py-0.5 rounded-full text-white"
+                  <span className="absolute top-1.5 left-1.5 z-10 text-[9px] md:text-[10px] font-bold px-1.5 py-0.5 rounded-full text-white"
                     style={{ background: p.badge === "Sale" ? "linear-gradient(90deg,#f43f8f,#fb923c)" : "linear-gradient(90deg,#e879f9,#f43f8f)" }}>
                     {p.badge}
                   </span>
                 )}
                 {p.isNew && (
-                  <span className="absolute top-2 right-2 z-10 text-[10px] font-bold px-2 py-0.5 rounded-full text-white"
+                  <span className="absolute top-1.5 right-1.5 z-10 text-[9px] md:text-[10px] font-bold px-1.5 py-0.5 rounded-full text-white"
                     style={{ background: "linear-gradient(90deg,#34d399,#059669)" }}>NEW</span>
                 )}
                 <Image src={p.image} alt={p.name} fill className="object-cover" />
-                {/* Quick view overlay */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
                   style={{ background: "rgba(10,0,16,0.5)" }}>
                   <span className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full text-white"
@@ -157,53 +156,54 @@ export default function Shop() {
 
               <div className="flex items-center justify-between mb-1">
                 <div className="flex items-center gap-1">
-                  <Users size={10} className="text-green-400" />
-                  <span className="text-[10px] text-green-400 font-medium">{viewers[p.id] ?? p.viewers} viewing</span>
+                  <Users size={9} className="text-green-400" />
+                  <span className="text-[9px] md:text-[10px] text-green-400 font-medium">{viewers[p.id] ?? p.viewers} viewing</span>
                 </div>
                 {stockBadge(p.stock)}
               </div>
 
-              <h3 className="font-bold text-sm mb-1 text-white">{p.name}</h3>
-              <p className="text-white/40 text-xs leading-relaxed mb-2 flex-1 line-clamp-2">{p.desc}</p>
+              <h3 className="font-bold text-xs md:text-sm mb-1 text-white leading-tight">{p.name}</h3>
+              <p className="text-white/40 text-[10px] md:text-xs leading-relaxed mb-1 flex-1 line-clamp-2">{p.desc}</p>
 
-              <div className="flex items-center gap-1.5 mb-2">
-                {[1,2,3,4,5].map(i => <Star key={i} size={10} fill={i <= Math.round(p.rating) ? "#facc15" : "none"} className={i <= Math.round(p.rating) ? "text-yellow-400" : "text-white/20"} />)}
-                <span className="text-[10px] text-white/40">{p.rating} ({p.reviews})</span>
+              <div className="flex items-center gap-1 mb-1">
+                {[1,2,3,4,5].map(i => <Star key={i} size={8} fill={i <= Math.round(p.rating) ? "#facc15" : "none"} className={i <= Math.round(p.rating) ? "text-yellow-400" : "text-white/20"} />)}
+                <span className="text-[9px] text-white/40">({p.reviews})</span>
               </div>
 
-              <div className="flex items-center gap-2 mb-3">
-                <p className="gradient-text font-bold text-base">{format(p.salePrice ?? p.price)}</p>
-                {p.salePrice && <p className="text-white/30 text-xs line-through">{format(p.price)}</p>}
+              <div className="flex items-center gap-1.5 mb-2">
+                <p className="gradient-text font-bold text-sm md:text-base">{format(p.salePrice ?? p.price)}</p>
+                {p.salePrice && <p className="text-white/30 text-[10px] line-through">{format(p.price)}</p>}
               </div>
 
               {/* Qty selector */}
-              <div className="flex items-center gap-2 mb-3">
-                <span className="text-xs text-white/40">Qty:</span>
-                <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-1.5 mb-2">
+                <span className="text-[10px] text-white/40">Qty:</span>
+                <div className="flex items-center gap-1">
                   <button onClick={() => setQty(p.id, getQty(p.id) - 1)}
-                    className="w-6 h-6 rounded-full flex items-center justify-center text-white/50 hover:text-white transition-colors"
-                    style={{ background: "rgba(255,255,255,0.06)" }}><Minus size={10} /></button>
+                    className="w-5 h-5 md:w-6 md:h-6 rounded-full flex items-center justify-center text-white/50 hover:text-white transition-colors"
+                    style={{ background: "rgba(255,255,255,0.06)" }}><Minus size={8} /></button>
                   <span className="text-xs font-semibold text-white w-4 text-center">{String(getQty(p.id))}</span>
                   <button onClick={() => setQty(p.id, getQty(p.id) + 1)}
-                    className="w-6 h-6 rounded-full flex items-center justify-center text-white/50 hover:text-white transition-colors"
-                    style={{ background: "rgba(255,255,255,0.06)" }}><Plus size={10} /></button>
+                    className="w-5 h-5 md:w-6 md:h-6 rounded-full flex items-center justify-center text-white/50 hover:text-white transition-colors"
+                    style={{ background: "rgba(255,255,255,0.06)" }}><Plus size={8} /></button>
                 </div>
               </div>
 
-              <div className="flex gap-2">
-                <button onClick={() => handleSelect(p)}
-                  className="btn-primary flex-1 py-2 text-xs flex items-center justify-center gap-1.5">
-                  <ShoppingBag size={12} /> Buy Now
-                </button>
+              {/* Buttons */}
+              <button onClick={() => handleSelect(p)}
+                className="btn-primary w-full py-2 text-xs flex items-center justify-center gap-1 mb-1.5">
+                <ShoppingBag size={11} /> Buy Now
+              </button>
+              <div className="flex gap-1.5">
                 <button onClick={() => toggleWishlist(p.id)}
-                  className="w-8 h-8 rounded-full flex items-center justify-center transition-all"
+                  className="flex-1 h-7 rounded-full flex items-center justify-center transition-all"
                   style={{ background: isWished ? "rgba(244,63,143,0.2)" : "rgba(255,255,255,0.06)", border: isWished ? "1px solid rgba(244,63,143,0.4)" : "1px solid rgba(255,255,255,0.1)" }}>
-                  <Heart size={12} fill={isWished ? "#f43f8f" : "none"} className={isWished ? "text-pink-500" : "text-white/40"} />
+                  <Heart size={11} fill={isWished ? "#f43f8f" : "none"} className={isWished ? "text-pink-500" : "text-white/40"} />
                 </button>
                 <button onClick={() => handleShare(p)}
-                  className="w-8 h-8 rounded-full flex items-center justify-center transition-all"
+                  className="flex-1 h-7 rounded-full flex items-center justify-center transition-all"
                   style={{ background: "rgba(232,121,249,0.08)", border: "1px solid rgba(232,121,249,0.15)" }}>
-                  {shared === p.id ? <Check size={12} style={{ color: "#e879f9" }} /> : <Share2 size={12} style={{ color: "#e879f9" }} />}
+                  {shared === p.id ? <Check size={11} style={{ color: "#e879f9" }} /> : <Share2 size={11} style={{ color: "#e879f9" }} />}
                 </button>
               </div>
             </div>
