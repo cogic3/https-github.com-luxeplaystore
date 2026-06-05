@@ -89,24 +89,19 @@ export default function Navbar() {
             </nav>
           </div>
 
-          {/* Mobile menu button */}
-          <button className="md:hidden text-white/60 hover:text-white p-1" onClick={() => setOpen(!open)}>
-            {open ? <X size={22} /> : <Menu size={22} />}
-          </button>
-
           {/* Right — icons (always visible) */}
           <div className="flex items-center gap-0.5 md:gap-1">
             <CurrencyDropdown />
 
-            {/* Theme toggle */}
+            {/* Theme toggle — always visible */}
             <button onClick={toggle}
-              className="p-2 rounded-xl text-white/60 hover:text-white transition-colors hidden md:flex items-center justify-center"
+              className="p-2 rounded-xl text-white/60 hover:text-white transition-colors flex items-center justify-center"
               style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.08)" }}
               title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}>
               {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
             </button>
 
-            {/* Auth */}
+            {/* Auth — always visible */}
             {user ? (
               <div ref={userRef} className="relative">
                 <button onClick={() => setShowUserMenu(!showUserMenu)}
@@ -143,9 +138,9 @@ export default function Navbar() {
               </div>
             ) : (
               <button onClick={() => setShowAuth(true)}
-                className="hidden md:flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold text-white/70 hover:text-white transition-colors"
+                className="flex items-center gap-2 px-2 md:px-4 py-2 rounded-xl text-xs font-semibold text-white/70 hover:text-white transition-colors"
                 style={{ background: "rgba(232,121,249,0.08)", border: "1px solid rgba(232,121,249,0.15)" }}>
-                <User size={14} /> Sign In
+                <User size={14} /><span className="hidden md:inline">Sign In</span>
               </button>
             )}
 
@@ -187,31 +182,12 @@ export default function Navbar() {
             <Link href="/wishlist" onClick={() => setOpen(false)} className="hover:text-white transition-colors">Wishlist {wishlist.length > 0 && `(${wishlist.length})`}</Link>
             <Link href="/faq" onClick={() => setOpen(false)} className="hover:text-white transition-colors">FAQ</Link>
             <Link href="/contact" onClick={() => setOpen(false)} className="hover:text-white transition-colors">Contact</Link>
-            {user ? (
+            {user && (
               <>
                 <Link href="/profile" onClick={() => setOpen(false)} className="hover:text-white transition-colors">My Profile</Link>
                 <button onClick={() => { logout(); setOpen(false); }} className="text-left text-red-400 hover:text-red-300 transition-colors">Sign Out</button>
               </>
-            ) : (
-              <button onClick={() => { setShowAuth(true); setOpen(false); }} className="text-left hover:text-white transition-colors" style={{ color: "#e879f9" }}>
-                Sign In / Sign Up
-              </button>
             )}
-            <button onClick={() => { toggle(); setOpen(false); }}
-              className="flex items-center gap-2 hover:text-white transition-colors"
-              style={{ color: "#e879f9" }}>
-              {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
-              {theme === "dark" ? "Light Mode" : "Dark Mode"}
-            </button>
-            <div className="flex flex-wrap gap-2 pt-2">
-              {CURRENCIES.map(c => (
-                <button key={c.code} onClick={() => { setCurrency(c.code); setOpen(false); }}
-                  className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all flex items-center gap-1 ${currency === c.code ? "btn-primary" : "text-white/40 hover:text-white"}`}
-                  style={currency !== c.code ? { background: "rgba(255,255,255,0.05)" } : {}}>
-                  {c.flag} {c.code}
-                </button>
-              ))}
-            </div>
           </div>
         )}
       </header>
