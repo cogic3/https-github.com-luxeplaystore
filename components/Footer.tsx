@@ -16,7 +16,7 @@ export default function Footer() {
   return (
     <>
       {/* Trustpilot-style review section */}
-      <section className="border-t py-14 px-6" style={{ borderColor: "rgba(232,121,249,0.1)", background: "rgba(232,121,249,0.02)" }}>
+      <section className="border-t py-10 md:py-14 px-4 md:px-6" style={{ borderColor: "rgba(232,121,249,0.1)", background: "rgba(232,121,249,0.02)" }}>
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-10">
@@ -75,7 +75,7 @@ export default function Footer() {
       </section>
 
       <footer className="border-t" style={{ borderColor: "rgba(232,121,249,0.1)", background: "rgba(232,121,249,0.02)" }}>
-      <div className="max-w-6xl mx-auto px-6 py-14 grid grid-cols-2 md:grid-cols-4 gap-10">
+      <div className="max-w-6xl mx-auto px-4 md:px-6 py-10 md:py-14 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-10">
 
         {/* Brand */}
         <div className="col-span-2 md:col-span-1">

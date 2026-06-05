@@ -67,7 +67,7 @@ export default function Wishlist() {
   }
 
   return (
-    <div className="min-h-screen pt-28 pb-24 px-6 max-w-6xl mx-auto">
+    <div className="min-h-screen pt-20 md:pt-28 pb-24 px-4 md:px-6 max-w-6xl mx-auto">
       <p className="text-xs uppercase tracking-[0.4em] mb-2" style={{ color: "#e879f9" }}>Saved Items</p>
       <h1 className="text-4xl md:text-5xl font-bold mb-2">
         <span className="gradient-text">Wishlist</span>

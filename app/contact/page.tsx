@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Contact() {
   return (
-    <div className="min-h-screen pt-28 pb-24 px-6 max-w-3xl mx-auto">
+    <div className="min-h-screen pt-20 md:pt-28 pb-24 px-4 md:px-6 max-w-3xl mx-auto">
       <p className="text-xs uppercase tracking-[0.4em] mb-2" style={{ color: "#e879f9" }}>Get In Touch</p>
       <h1 className="text-4xl md:text-5xl font-bold mb-4"><span className="gradient-text">Contact Us</span></h1>
       <p className="text-white/50 mb-12 text-lg">We&apos;re available 24/7. Reach out anytime and we&apos;ll get back to you quickly.</p>

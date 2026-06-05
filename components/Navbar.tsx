@@ -74,9 +74,9 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="fixed top-8 inset-x-0 z-50 border-b border-white/6"
+      <header className="fixed top-6 inset-x-0 z-50 border-b border-white/6"
         style={{ background: "rgba(10,0,16,0.9)", backdropFilter: "blur(16px)" }}>
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-4 md:px-6 h-14 md:h-16 flex items-center justify-between">
 
           {/* Left — logo + nav links */}
           <div className="flex items-center gap-8">
@@ -90,12 +90,12 @@ export default function Navbar() {
           </div>
 
           {/* Mobile menu button */}
-          <button className="md:hidden text-white/60 hover:text-white" onClick={() => setOpen(!open)}>
+          <button className="md:hidden text-white/60 hover:text-white p-1" onClick={() => setOpen(!open)}>
             {open ? <X size={22} /> : <Menu size={22} />}
           </button>
 
           {/* Right — icons */}
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-0.5 md:gap-1">
             <CurrencyDropdown />
 
             {/* Theme toggle */}

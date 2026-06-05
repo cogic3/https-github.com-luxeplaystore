@@ -61,7 +61,7 @@ export default function Home() {
     <div className="min-h-screen flex flex-col">
 
       {/* Hero */}
-      <section className="flex-1 flex flex-col items-center justify-center text-center px-6 pt-44 pb-28 relative overflow-hidden">
+      <section className="flex-1 flex flex-col items-center justify-center text-center px-6 pt-32 pb-20 md:pt-44 md:pb-28 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none"
           style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(232,121,249,0.25) 0%, transparent 55%), radial-gradient(ellipse at 20% 80%, rgba(244,63,143,0.2) 0%, transparent 50%), radial-gradient(ellipse at 80% 60%, rgba(251,146,60,0.1) 0%, transparent 40%)" }} />
         <div className="absolute inset-0 pointer-events-none opacity-[0.04]"
@@ -70,16 +70,16 @@ export default function Home() {
           style={{ color: "#e879f9", background: "rgba(232,121,249,0.1)", border: "1px solid rgba(232,121,249,0.2)" }}>
           Premium Adult Boutique
         </span>
-        <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+        <h1 className="text-4xl md:text-7xl font-bold mb-6 leading-tight">
           Pleasure, <span className="gradient-text">Elevated.</span>
         </h1>
-        <p className="max-w-lg mb-10 text-lg text-white/60">
+        <p className="max-w-lg mb-8 text-base md:text-lg text-white/60">
           Discreet shipping. Body-safe quality. Everything you need, delivered to your door.
         </p>
-        <div className="flex items-center gap-4 flex-wrap justify-center">
-          <Link href="/shop" className="btn-primary px-10 py-4 text-base">Shop Now</Link>
+        <div className="flex flex-col sm:flex-row items-center gap-3 w-full max-w-xs sm:max-w-none justify-center">
+          <Link href="/shop" className="btn-primary px-10 py-3.5 text-sm w-full sm:w-auto text-center">Shop Now</Link>
           <a href="https://t.me/luxeplayadmin" target="_blank" rel="noopener noreferrer"
-            className="flex items-center gap-2 px-6 py-4 rounded-full text-sm font-semibold transition-all hover:scale-105"
+            className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold transition-all hover:scale-105 w-full sm:w-auto"
             style={{ background: "rgba(232,121,249,0.08)", border: "1px solid rgba(232,121,249,0.2)", color: "#e879f9" }}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 13.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"/></svg>
             Contact Us
@@ -100,7 +100,7 @@ export default function Home() {
       </section>
 
       {/* Best Sellers */}
-      <section className="max-w-6xl mx-auto px-6 py-20">
+      <section className="max-w-6xl mx-auto px-4 md:px-6 py-14 md:py-20">
         <div className="flex items-end justify-between mb-10">
           <div>
             <p className="text-xs uppercase tracking-[0.4em] mb-2" style={{ color: "#e879f9" }}>🏆 Top Rated</p>
@@ -114,7 +114,7 @@ export default function Home() {
       </section>
 
       {/* Featured Products */}
-      <section className="max-w-6xl mx-auto px-6 pb-20">
+      <section className="max-w-6xl mx-auto px-4 md:px-6 pb-14 md:pb-20">
         <div className="flex items-end justify-between mb-10">
           <div>
             <p className="text-xs uppercase tracking-[0.4em] mb-2" style={{ color: "#e879f9" }}>Handpicked For You</p>
@@ -139,11 +139,11 @@ export default function Home() {
       )}
 
       {/* How it works */}
-      <section className="py-20 px-6" style={{ background: "rgba(232,121,249,0.03)", borderTop: "1px solid rgba(232,121,249,0.08)", borderBottom: "1px solid rgba(232,121,249,0.08)" }}>
+      <section className="py-14 md:py-20 px-4 md:px-6" style={{ background: "rgba(232,121,249,0.03)", borderTop: "1px solid rgba(232,121,249,0.08)", borderBottom: "1px solid rgba(232,121,249,0.08)" }}>
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-xs uppercase tracking-[0.4em] mb-2" style={{ color: "#e879f9" }}>Simple Process</p>
           <h2 className="text-3xl font-bold text-white mb-14">How It Works</h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
             {[
               { step: "01", icon: "🛍️", title: "Browse & Pick", desc: "Choose from our curated collection." },
               { step: "02", icon: "📝", title: "Fill Details", desc: "Enter shipping info — kept private." },
@@ -163,7 +163,7 @@ export default function Home() {
       </section>
 
       {/* Testimonials */}
-      <section className="max-w-5xl mx-auto px-6 py-20">
+      <section className="max-w-5xl mx-auto px-4 md:px-6 py-14 md:py-20">
         <div className="text-center mb-12">
           <p className="text-xs uppercase tracking-[0.4em] mb-2" style={{ color: "#e879f9" }}>Happy Customers</p>
           <h2 className="text-3xl font-bold text-white">What People Say</h2>
@@ -180,7 +180,7 @@ export default function Home() {
       </section>
 
       {/* Security badges */}
-      <section className="max-w-4xl mx-auto px-6 pb-16">
+      <section className="max-w-4xl mx-auto px-4 md:px-6 pb-12 md:pb-16">
         <p className="text-xs uppercase tracking-[0.4em] mb-6 text-center" style={{ color: "#e879f9" }}>Safe & Secure</p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
@@ -199,7 +199,7 @@ export default function Home() {
       </section>
 
       {/* Telegram App section */}
-      <section className="mx-6 mb-16 rounded-2xl p-10 relative overflow-hidden"
+      <section className="mx-3 md:mx-6 mb-12 md:mb-16 rounded-2xl p-6 md:p-10 relative overflow-hidden"
         style={{ background: "linear-gradient(135deg, rgba(232,121,249,0.1), rgba(244,63,143,0.08))", border: "1px solid rgba(232,121,249,0.2)" }}>
         <div className="max-w-2xl mx-auto flex flex-col md:flex-row items-center gap-8 text-center md:text-left">
           <div className="text-7xl shrink-0">📱</div>
@@ -216,7 +216,7 @@ export default function Home() {
       </section>
 
       {/* Newsletter */}
-      <section className="max-w-xl mx-auto px-6 pb-20 text-center">
+      <section className="max-w-xl mx-auto px-4 md:px-6 pb-16 md:pb-20 text-center">
         <p className="text-xs uppercase tracking-[0.4em] mb-2" style={{ color: "#e879f9" }}>Stay Updated</p>
         <h2 className="text-2xl font-bold text-white mb-3">Get Exclusive Deals</h2>
         <p className="text-white/40 text-sm mb-8">Subscribe for promo codes, new arrivals, and members-only discounts.</p>
@@ -237,7 +237,7 @@ export default function Home() {
       </section>
 
       {/* CTA Banner */}
-      <section className="mx-6 mb-20 rounded-2xl p-12 text-center relative overflow-hidden"
+      <section className="mx-3 md:mx-6 mb-14 md:mb-20 rounded-2xl p-8 md:p-12 text-center relative overflow-hidden"
         style={{ background: "linear-gradient(135deg, rgba(232,121,249,0.15), rgba(244,63,143,0.1))", border: "1px solid rgba(232,121,249,0.2)" }}>
         <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Ready to explore?</h2>
         <p className="text-white/50 mb-8 max-w-md mx-auto">Browse our full collection and find exactly what you&apos;re looking for.</p>
