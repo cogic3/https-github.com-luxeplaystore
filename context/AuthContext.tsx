@@ -1,38 +1,65 @@
 "use client";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import { supabase } from "@/lib/supabase";
+import type { User as SupabaseUser } from "@supabase/supabase-js";
 
 export type User = { name: string; email: string };
 
 type AuthCtx = {
   user: User | null;
-  login: (email: string, password: string) => string | null;
-  signup: (name: string, email: string, password: string) => string | null;
-  logout: () => void;
+  loading: boolean;
+  login: (email: string, password: string) => Promise<string | null>;
+  signup: (name: string, email: string, password: string) => Promise<string | null>;
+  logout: () => Promise<void>;
 };
 
 const Ctx = createContext<AuthCtx>({} as AuthCtx);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
-  const [accounts, setAccounts] = useState<{ name: string; email: string; password: string }[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  function signup(name: string, email: string, password: string): string | null {
-    if (accounts.find(a => a.email === email)) return "An account with this email already exists.";
-    setAccounts(prev => [...prev, { name, email, password }]);
-    setUser({ name, email });
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session?.user) setUser(toUser(session.user));
+      setLoading(false);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ? toUser(session.user) : null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  function toUser(u: SupabaseUser): User {
+    return {
+      name: u.user_metadata?.name ?? u.email?.split("@")[0] ?? "User",
+      email: u.email ?? "",
+    };
+  }
+
+  async function signup(name: string, email: string, password: string): Promise<string | null> {
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: { data: { name } },
+    });
+    if (error) return error.message;
     return null;
   }
 
-  function login(email: string, password: string): string | null {
-    const account = accounts.find(a => a.email === email && a.password === password);
-    if (!account) return "Invalid email or password.";
-    setUser({ name: account.name, email: account.email });
+  async function login(email: string, password: string): Promise<string | null> {
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) return "Invalid email or password.";
     return null;
   }
 
-  function logout() { setUser(null); }
+  async function logout() {
+    await supabase.auth.signOut();
+  }
 
-  return <Ctx.Provider value={{ user, login, signup, logout }}>{children}</Ctx.Provider>;
+  return <Ctx.Provider value={{ user, loading, login, signup, logout }}>{children}</Ctx.Provider>;
 }
 
 export const useAuth = () => useContext(Ctx);

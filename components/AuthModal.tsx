@@ -13,12 +13,12 @@ export default function AuthModal({ onClose }: Props) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError("");
     const err = tab === "signin"
-      ? login(email, password)
-      : signup(name, email, password);
+      ? await login(email, password)
+      : await signup(name, email, password);
     if (err) { setError(err); return; }
     onClose();
   }
