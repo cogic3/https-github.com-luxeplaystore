@@ -87,6 +87,30 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Stats section */}
+      <section className="border-y py-12 px-6" style={{ borderColor: "rgba(232,121,249,0.1)", background: "rgba(232,121,249,0.02)" }}>
+        <div className="max-w-4xl mx-auto text-center">
+          <p className="text-xs uppercase tracking-[0.4em] font-semibold mb-4" style={{ color: "#e879f9" }}>Our Reach</p>
+          <p className="text-white font-bold text-xl md:text-2xl mb-10 max-w-xl mx-auto leading-relaxed">
+            Sextech&apos;s biggest ecosystem &mdash; connecting toys, apps, platforms, and a global community.
+          </p>
+          <div className="flex flex-wrap justify-center gap-8 md:gap-24">
+            <div className="flex flex-col items-center">
+              <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl mb-3"
+                style={{ background: "rgba(232,121,249,0.1)", border: "1px solid rgba(232,121,249,0.2)" }}>👥</div>
+              <p className="gradient-text font-black text-5xl md:text-6xl tracking-tight">7M+</p>
+              <p className="text-white/50 text-sm font-semibold mt-2 uppercase tracking-widest">Users</p>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl mb-3"
+                style={{ background: "rgba(232,121,249,0.1)", border: "1px solid rgba(232,121,249,0.2)" }}>🌍</div>
+              <p className="gradient-text font-black text-5xl md:text-6xl tracking-tight">60+</p>
+              <p className="text-white/50 text-sm font-semibold mt-2 uppercase tracking-widest">Countries</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Trust badges */}
       <section className="border-y py-6" style={{ borderColor: "rgba(232,121,249,0.1)" }}>
         <div className="max-w-4xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
