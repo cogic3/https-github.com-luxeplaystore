@@ -74,7 +74,7 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="fixed top-6 inset-x-0 z-50 border-b border-white/6"
+      <header className="fixed top-10 inset-x-0 z-50 border-b border-white/6"
         style={{ background: "rgba(10,0,16,0.9)", backdropFilter: "blur(16px)" }}>
         <div className="max-w-6xl mx-auto px-4 md:px-6 h-14 md:h-16 flex items-center justify-between">
 
