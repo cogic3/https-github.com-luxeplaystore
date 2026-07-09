@@ -23,6 +23,12 @@ export default function AuthModal({ onClose }: Props) {
       : await signup(name, email, password);
     setLoading(false);
     if (err) { setError(err); return; }
+    // Show referral discount if applicable
+    const refDiscount = localStorage.getItem("luxeplay_referral_discount");
+    if (tab === "signup" && refDiscount) {
+      localStorage.removeItem("luxeplay_referral_discount");
+      alert(`🎉 Welcome! Use code ${refDiscount} for 10% off your first order!`);
+    }
     onClose();
   }
 

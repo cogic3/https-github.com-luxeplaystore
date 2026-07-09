@@ -10,6 +10,7 @@ import CountdownBanner from "@/components/CountdownBanner";
 import ScrollToTop from "@/components/ScrollToTop";
 import PageLoader from "@/components/PageLoader";
 import RecentPurchasePopup from "@/components/RecentPurchasePopup";
+import PushNotificationPrompt from "@/components/PushNotificationPrompt";
 import { CartProvider } from "@/context/CartContext";
 import { CurrencyProvider } from "@/context/CurrencyContext";
 import { StoreProvider } from "@/context/StoreContext";
@@ -42,6 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <ScrollToTop />
                 <CookieBanner />
                 <RecentPurchasePopup />
+                <PushNotificationPrompt />
               </AgeGate>
               </AuthProvider>
             </StoreProvider>

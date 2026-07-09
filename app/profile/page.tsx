@@ -5,6 +5,7 @@ import { useCart } from "@/context/CartContext";
 import { useCurrency } from "@/context/CurrencyContext";
 import Link from "next/link";
 import { Heart, ShoppingBag, Package, LogOut, Star } from "lucide-react";
+import ReferralBox from "@/components/ReferralBox";
 import { useEffect, useState } from "react";
 
 type Order = { id: string; date: string; items: string; total: number; status: string };
@@ -128,6 +129,9 @@ export default function Profile() {
           </div>
         )}
       </div>
+
+      {/* Referral */}
+      <div className="mb-6"><ReferralBox /></div>
 
       {/* Quick links */}
       <div className="card p-6">

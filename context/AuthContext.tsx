@@ -41,6 +41,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const { user: u } = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(u, { displayName: name });
       setUser({ name, email: u.email ?? "" });
+      // Handle referral code
+      try {
+        const ref = new URLSearchParams(window.location.search).get("ref");
+        if (ref) {
+          const key = `luxeplay_referrals_${ref}`;
+          const count = Number(localStorage.getItem(key) || "0");
+          localStorage.setItem(key, String(count + 1));
+          // Give new user a discount code
+          localStorage.setItem("luxeplay_referral_discount", "WELCOME10");
+        }
+      } catch {}
       return null;
     } catch (e: unknown) {
       const code = (e as { code?: string }).code;
