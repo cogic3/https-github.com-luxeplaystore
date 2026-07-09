@@ -9,6 +9,7 @@ import CookieBanner from "@/components/CookieBanner";
 import CountdownBanner from "@/components/CountdownBanner";
 import ScrollToTop from "@/components/ScrollToTop";
 import PageLoader from "@/components/PageLoader";
+import RecentPurchasePopup from "@/components/RecentPurchasePopup";
 import { CartProvider } from "@/context/CartContext";
 import { CurrencyProvider } from "@/context/CurrencyContext";
 import { StoreProvider } from "@/context/StoreContext";
@@ -40,6 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <TelegramFloat />
                 <ScrollToTop />
                 <CookieBanner />
+                <RecentPurchasePopup />
               </AgeGate>
               </AuthProvider>
             </StoreProvider>

@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 export type CartItem = { id: number; name: string; price: number; image: string; qty: number };
 export type ShippingInfo = { fullName: string; email: string; phone: string; address: string; city: string; country: string };
@@ -30,6 +30,19 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const [promoCode, setPromoCode] = useState("");
   const [discount, setDiscount] = useState(0);
   const [promoError, setPromoError] = useState("");
+
+  // Load from localStorage on mount
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("luxeplay_cart");
+      if (saved) setItems(JSON.parse(saved));
+    } catch {}
+  }, []);
+
+  // Save to localStorage on change
+  useEffect(() => {
+    localStorage.setItem("luxeplay_cart", JSON.stringify(items));
+  }, [items]);
 
   function add(p: Omit<CartItem, "qty"> & { qty?: number }) {
     const incoming = p.qty ?? 1;

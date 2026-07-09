@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { Product } from "@/lib/products";
 
 type StoreCtx = {
@@ -14,6 +14,17 @@ const Ctx = createContext<StoreCtx>({} as StoreCtx);
 export function StoreProvider({ children }: { children: React.ReactNode }) {
   const [wishlist, setWishlist] = useState<number[]>([]);
   const [recentlyViewed, setRecentlyViewed] = useState<Product[]>([]);
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("luxeplay_wishlist");
+      if (saved) setWishlist(JSON.parse(saved));
+    } catch {}
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("luxeplay_wishlist", JSON.stringify(wishlist));
+  }, [wishlist]);
 
   function toggleWishlist(id: number) {
     setWishlist(prev => prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]);

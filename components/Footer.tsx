@@ -106,6 +106,8 @@ export default function Footer() {
         <div>
           <p className="text-white font-semibold text-sm mb-4">Help</p>
           <div className="flex flex-col gap-2.5 text-sm text-white/40">
+            <Link href="/about" className="hover:text-white transition-colors">About Us</Link>
+            <Link href="/shipping" className="hover:text-white transition-colors">Shipping Info</Link>
             <Link href="/faq" className="hover:text-white transition-colors">FAQ</Link>
             <Link href="/contact" className="hover:text-white transition-colors">Contact Us</Link>
             <Link href="/tracking" className="hover:text-white transition-colors">Track Order</Link>

@@ -19,6 +19,23 @@ export default function Cart() {
   const [uploadDone, setUploadDone] = useState(false);
   const [promoInput, setPromoInput] = useState("");
 
+  function saveOrder() {
+    try {
+      const existing = JSON.parse(localStorage.getItem("luxeplay_orders") || "[]");
+      const order = {
+        id: Date.now().toString(),
+        date: new Date().toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" }),
+        items: items.map(i => i.name).join(", "),
+        total: discountedTotal,
+        status: "Processing",
+      };
+      localStorage.setItem("luxeplay_orders", JSON.stringify([order, ...existing]));
+      // Award loyalty points: 1 pt per $1
+      const pts = Number(localStorage.getItem("luxeplay_points") || "0");
+      localStorage.setItem("luxeplay_points", String(pts + Math.floor(discountedTotal)));
+    } catch {}
+  }
+
   const cartIds = items.map(i => i.id);
   const suggestions = products.filter(p => !cartIds.includes(p.id)).slice(0, 4);
 
@@ -175,6 +192,7 @@ export default function Cart() {
                   </button>
                 </div>
                 <a href="https://t.me/luxeplayadmin" target="_blank" rel="noopener noreferrer"
+                  onClick={saveOrder}
                   className="btn-primary w-full py-3 text-sm text-center block">Confirm Order via Telegram</a>
                 <p className="text-white/25 text-xs text-center mt-3 leading-relaxed">After paying, send us your transaction ID on Telegram.</p>
               </>
@@ -204,6 +222,7 @@ export default function Cart() {
                   </div>
                 )}
                 <a href="https://t.me/luxeplayadmin" target="_blank" rel="noopener noreferrer"
+                  onClick={saveOrder}
                   className="btn-primary w-full py-3 text-sm text-center block">Confirm Order via Telegram</a>
                 <p className="text-white/25 text-xs text-center mt-3 leading-relaxed">After uploading, message us on Telegram to confirm.</p>
               </>

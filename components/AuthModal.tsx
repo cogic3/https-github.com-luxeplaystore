@@ -2,13 +2,14 @@
 import { useState } from "react";
 import { X } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import { supabase } from "@/lib/supabase";
 
 type Props = { onClose: () => void };
 
 export default function AuthModal({ onClose }: Props) {
   const { login, signup } = useAuth();
   const [tab, setTab] = useState<"signin" | "signup">("signin");
-  const [step, setStep] = useState<"form" | "confirm">("form");
+  const [step, setStep] = useState<"form" | "confirm" | "forgot" | "forgot-sent">("form");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,6 +29,18 @@ export default function AuthModal({ onClose }: Props) {
     onClose();
   }
 
+  async function handleForgot(e: React.FormEvent) {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/profile`,
+    });
+    setLoading(false);
+    if (error) { setError(error.message); return; }
+    setStep("forgot-sent");
+  }
+
   function switchTab(t: "signin" | "signup") {
     setTab(t);
     setStep("form");
@@ -44,7 +57,29 @@ export default function AuthModal({ onClose }: Props) {
 
         <p className="gradient-text font-bold text-xl mb-6">LuxePlay</p>
 
-        {step === "confirm" ? (
+        {step === "forgot" ? (
+          <div>
+            <button onClick={() => setStep("form")} className="flex items-center gap-1 text-xs mb-5" style={{ color: "#e879f9" }}>← Back to Sign In</button>
+            <h2 className="text-white font-bold text-lg mb-2">Reset Password</h2>
+            <p className="text-white/50 text-sm mb-5">Enter your email and we&apos;ll send you a reset link.</p>
+            <form onSubmit={handleForgot} className="flex flex-col gap-3">
+              <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email Address" required
+                className="w-full px-4 py-3 rounded-xl text-sm text-white placeholder-white/30 outline-none"
+                style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(232,121,249,0.15)" }} />
+              {error && <p className="text-xs" style={{ color: "#f43f8f" }}>{error}</p>}
+              <button type="submit" disabled={loading} className="btn-primary w-full py-3 text-sm disabled:opacity-50">
+                {loading ? "Sending..." : "Send Reset Link"}
+              </button>
+            </form>
+          </div>
+        ) : step === "forgot-sent" ? (
+          <div className="text-center py-4">
+            <p className="text-5xl mb-4">📧</p>
+            <h2 className="text-white font-bold text-lg mb-2">Check your email!</h2>
+            <p className="text-white/50 text-sm mb-4">We sent a password reset link to <span style={{ color: "#e879f9" }}>{email}</span></p>
+            <button onClick={() => switchTab("signin")} className="btn-primary w-full py-3 text-sm">Back to Sign In</button>
+          </div>
+        ) : step === "confirm" ? (
           <div className="text-center py-4">
             <p className="text-5xl mb-4">📧</p>
             <h2 className="text-white font-bold text-lg mb-2">Check your email!</h2>
@@ -98,6 +133,14 @@ export default function AuthModal({ onClose }: Props) {
                 {tab === "signin" ? "Sign Up" : "Sign In"}
               </button>
             </p>
+            {tab === "signin" && (
+              <p className="text-white/25 text-xs text-center mt-2">
+                <button onClick={() => { setStep("forgot"); setError(""); }}
+                  className="hover:text-white transition-colors" style={{ color: "rgba(232,121,249,0.6)" }}>
+                  Forgot password?
+                </button>
+              </p>
+            )}
           </>
         )}
       </div>

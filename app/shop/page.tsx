@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { products } from "@/lib/products";
 import { useCart } from "@/context/CartContext";
 import { useStore } from "@/context/StoreContext";
@@ -8,11 +9,14 @@ import { useCurrency } from "@/context/CurrencyContext";
 import ShippingModal from "@/components/ShippingModal";
 import QuickView from "@/components/QuickView";
 import AuthModal from "@/components/AuthModal";
-import { ShoppingBag, Search, Star, Users, Share2, Check, Heart, Eye, Minus, Plus } from "lucide-react";
+import SaleTimer from "@/components/SaleTimer";
+import { ShoppingBag, Search, Star, Users, Share2, Check, Heart, Eye, Minus, Plus, SlidersHorizontal } from "lucide-react";
 import Image from "next/image";
 import { useAuth } from "@/context/AuthContext";
 
-const CATEGORIES = ["all", "vibrators", "dildos", "machines", "accessories", "costumes"] as const;
+const CATEGORIES = ["all", "bundles", "vibrators", "dildos", "machines", "accessories", "costumes"] as const;
+const SORTS = ["featured", "price-low", "price-high", "rating", "newest"] as const;
+type SortKey = typeof SORTS[number];
 type Product = typeof products[0];
 
 export default function Shop() {
@@ -31,6 +35,8 @@ export default function Shop() {
   const [shared, setShared] = useState<number | null>(null);
   const [viewers, setViewers] = useState<Record<number, number>>({});
   const [qtys, setQtys] = useState<Record<number, number>>({});
+  const [sort, setSort] = useState<SortKey>("featured");
+  const [showSort, setShowSort] = useState(false);
 
   function getQty(id: number) { return qtys[id] !== undefined ? qtys[id] : 1; }
   function setQty(id: number, q: number) { setQtys(prev => ({ ...prev, [id]: Math.max(1, q) })); }
@@ -50,11 +56,19 @@ export default function Shop() {
     return () => clearInterval(interval);
   }, []);
 
-  const filtered = products.filter(p => {
-    const matchCat = active === "all" || p.category === active;
-    const matchSearch = p.name.toLowerCase().includes(search.toLowerCase()) || p.desc.toLowerCase().includes(search.toLowerCase());
-    return matchCat && matchSearch;
-  });
+  const filtered = products
+    .filter(p => {
+      const matchCat = active === "all" || p.category === active;
+      const matchSearch = p.name.toLowerCase().includes(search.toLowerCase()) || p.desc.toLowerCase().includes(search.toLowerCase());
+      return matchCat && matchSearch;
+    })
+    .sort((a, b) => {
+      if (sort === "price-low") return (a.salePrice ?? a.price) - (b.salePrice ?? b.price);
+      if (sort === "price-high") return (b.salePrice ?? b.price) - (a.salePrice ?? a.price);
+      if (sort === "rating") return b.rating - a.rating;
+      if (sort === "newest") return (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0);
+      return 0;
+    });
 
   function handleSelect(p: Product) {
     if (!user) {
@@ -111,13 +125,35 @@ export default function Shop() {
           style={{ background: "rgba(232,121,249,0.05)", border: "1px solid rgba(232,121,249,0.15)" }} />
       </div>
 
-      <div className="flex flex-wrap gap-2 mb-10">
-        {CATEGORIES.map(c => (
-          <button key={c} onClick={() => setActive(c)}
-            className={`px-5 py-2 rounded-full text-sm font-semibold transition-all capitalize ${active === c ? "btn-primary" : "card text-white/50 hover:text-white"}`}>
-            {c}
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-10">
+        <div className="flex flex-wrap gap-2">
+          {CATEGORIES.map(c => (
+            <button key={c} onClick={() => setActive(c)}
+              className={`px-4 py-2 rounded-full text-xs md:text-sm font-semibold transition-all capitalize ${active === c ? "btn-primary" : "card text-white/50 hover:text-white"}`}>
+              {c === "bundles" ? "🎁 Bundles" : c}
+            </button>
+          ))}
+        </div>
+        {/* Sort dropdown */}
+        <div className="relative">
+          <button onClick={() => setShowSort(!showSort)}
+            className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold card text-white/60 hover:text-white transition-colors">
+            <SlidersHorizontal size={14} />
+            <span className="capitalize">{sort.replace("-", " ")}</span>
           </button>
-        ))}
+          {showSort && (
+            <div className="absolute right-0 top-full mt-2 w-44 rounded-2xl overflow-hidden z-30 shadow-2xl"
+              style={{ background: "#0a0010", border: "1px solid rgba(232,121,249,0.2)" }}>
+              {SORTS.map(s => (
+                <button key={s} onClick={() => { setSort(s); setShowSort(false); }}
+                  className="w-full text-left px-4 py-2.5 text-sm capitalize transition-colors hover:bg-white/5"
+                  style={{ color: sort === s ? "#e879f9" : "rgba(255,255,255,0.6)", background: sort === s ? "rgba(232,121,249,0.08)" : "transparent" }}>
+                  {s.replace("-", " ")}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
       {filtered.length === 0 && (
@@ -133,7 +169,8 @@ export default function Shop() {
           return (
             <div key={p.id} id={String(p.id)} className="card p-3 md:p-4 flex flex-col group">
               <div className="relative w-full aspect-square rounded-xl overflow-hidden mb-2 cursor-pointer"
-                style={{ background: "rgba(232,121,249,0.05)" }} onClick={() => { setQuickView(p); addRecentlyViewed(p); }}>
+                style={{ background: "rgba(232,121,249,0.05)" }} onClick={() => { setQuickView(p); addRecentlyViewed(p); }}
+                onDoubleClick={() => router.push(`/shop/${p.id}`)}>
                 {p.badge && (
                   <span className="absolute top-1.5 left-1.5 z-10 text-[9px] md:text-[10px] font-bold px-1.5 py-0.5 rounded-full text-white"
                     style={{ background: p.badge === "Sale" ? "linear-gradient(90deg,#f43f8f,#fb923c)" : "linear-gradient(90deg,#e879f9,#f43f8f)" }}>
@@ -170,10 +207,11 @@ export default function Shop() {
                 <span className="text-[9px] text-white/40">({p.reviews})</span>
               </div>
 
-              <div className="flex items-center gap-1.5 mb-2">
+              <div className="flex items-center gap-1.5 mb-1">
                 <p className="gradient-text font-bold text-sm md:text-base">{format(p.salePrice ?? p.price)}</p>
                 {p.salePrice && <p className="text-white/30 text-[10px] line-through">{format(p.price)}</p>}
               </div>
+              {p.salePrice && <SaleTimer />}
 
               {/* Qty selector */}
               <div className="flex items-center gap-1.5 mb-2">
@@ -205,6 +243,11 @@ export default function Shop() {
                   style={{ background: "rgba(232,121,249,0.08)", border: "1px solid rgba(232,121,249,0.15)" }}>
                   {shared === p.id ? <Check size={11} style={{ color: "#e879f9" }} /> : <Share2 size={11} style={{ color: "#e879f9" }} />}
                 </button>
+                <Link href={`/shop/${p.id}`}
+                  className="flex-1 h-7 rounded-full flex items-center justify-center transition-all text-[10px] font-semibold"
+                  style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.4)" }}>
+                  Details
+                </Link>
               </div>
             </div>
           );

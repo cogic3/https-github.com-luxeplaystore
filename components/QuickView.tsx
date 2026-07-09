@@ -1,12 +1,13 @@
 "use client";
 import { useState } from "react";
-import { X, ShoppingBag, Heart, Star } from "lucide-react";
+import { X, ShoppingBag, Heart, Star, ArrowRight } from "lucide-react";
 import Image from "next/image";
-import { Product } from "@/lib/products";
+import { Product, products } from "@/lib/products";
 import { useCart } from "@/context/CartContext";
 import { useStore } from "@/context/StoreContext";
 import { useCurrency } from "@/context/CurrencyContext";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 type Props = { product: Product; onClose: () => void; onBuy: () => void };
 
@@ -16,6 +17,7 @@ export default function QuickView({ product: p, onClose, onBuy }: Props) {
   const [imgIdx, setImgIdx] = useState(0);
   const [variant, setVariant] = useState(p.variants?.[0]?.label ?? "");
   const isWished = wishlist.includes(p.id);
+  const related = products.filter(r => r.category === p.category && r.id !== p.id).slice(0, 3);
 
   const stockColor = p.stock <= 3 ? "#f43f8f" : p.stock <= 8 ? "#fb923c" : "#34d399";
   const stockText = p.stock <= 3 ? `Only ${p.stock} left!` : p.stock <= 8 ? `${p.stock} in stock` : "In Stock";
@@ -94,6 +96,31 @@ export default function QuickView({ product: p, onClose, onBuy }: Props) {
               <Heart size={14} fill={isWished ? "#f43f8f" : "none"} className={isWished ? "text-pink-500" : "text-white/50"} />
             </button>
           </div>
+
+          <Link href={`/shop/${p.id}`} onClick={onClose}
+            className="mt-3 flex items-center justify-center gap-1 text-xs font-semibold transition-colors hover:text-white"
+            style={{ color: "#e879f9" }}>
+            View Full Details <ArrowRight size={12} />
+          </Link>
+
+          {/* Related */}
+          {related.length > 0 && (
+            <div className="mt-4 pt-4 border-t" style={{ borderColor: "rgba(232,121,249,0.1)" }}>
+              <p className="text-[10px] uppercase tracking-widest text-white/30 mb-3">You May Also Like</p>
+              <div className="flex gap-2">
+                {related.map(r => (
+                  <Link key={r.id} href={`/shop/${r.id}`} onClick={onClose} className="flex-1 group">
+                    <div className="relative w-full aspect-square rounded-lg overflow-hidden mb-1"
+                      style={{ background: "rgba(232,121,249,0.05)" }}>
+                      <Image src={r.image} alt={r.name} fill className="object-cover" />
+                    </div>
+                    <p className="text-[10px] text-white/60 font-semibold leading-tight line-clamp-1">{r.name}</p>
+                    <p className="text-[10px] gradient-text font-bold">{format(r.salePrice ?? r.price)}</p>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

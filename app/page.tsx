@@ -6,9 +6,12 @@ import { useStore } from "@/context/StoreContext";
 import { useCurrency } from "@/context/CurrencyContext";
 import { Star, Heart } from "lucide-react";
 import Image from "next/image";
+import SaleTimer from "@/components/SaleTimer";
 
 const featured = products.slice(0, 4);
 const bestSellers = products.filter(p => p.badge === "Best Seller" || p.rating >= 4.8);
+const newArrivals = products.filter(p => p.isNew).slice(0, 4);
+const bundles = products.filter(p => p.category === "bundles");
 
 const testimonials = [
   { name: "Ashley R.", text: "Packaging was so discreet, my roommates had no idea. Product was amazing!", rating: 5 },
@@ -30,16 +33,20 @@ export default function Home() {
   function ProductCard({ p }: { p: typeof products[0] }) {
     const isWished = wishlist.includes(p.id);
     return (
-      <Link href="/shop" className="card p-4 flex flex-col group">
+      <Link href={`/shop/${p.id}`} className="card p-4 flex flex-col group">
         <div className="relative w-full aspect-square rounded-xl overflow-hidden mb-3"
           style={{ background: "rgba(232,121,249,0.05)" }}>
           {p.badge && (
             <span className="absolute top-2 left-2 z-10 text-[10px] font-bold px-2 py-0.5 rounded-full text-white"
               style={{ background: "linear-gradient(90deg,#e879f9,#f43f8f)" }}>{p.badge}</span>
           )}
+          {p.isNew && (
+            <span className="absolute top-2 right-2 z-10 text-[10px] font-bold px-2 py-0.5 rounded-full text-white"
+              style={{ background: "linear-gradient(90deg,#34d399,#059669)" }}>NEW</span>
+          )}
           <Image src={p.image} alt={p.name} fill className="object-cover" />
           <button onClick={e => { e.preventDefault(); toggleWishlist(p.id); }}
-            className="absolute top-2 right-2 w-7 h-7 rounded-full flex items-center justify-center transition-all opacity-0 group-hover:opacity-100"
+            className="absolute bottom-2 right-2 w-7 h-7 rounded-full flex items-center justify-center transition-all opacity-0 group-hover:opacity-100"
             style={{ background: isWished ? "rgba(244,63,143,0.3)" : "rgba(0,0,0,0.4)" }}>
             <Heart size={12} fill={isWished ? "#f43f8f" : "none"} className={isWished ? "text-pink-400" : "text-white/60"} />
           </button>
@@ -53,6 +60,7 @@ export default function Home() {
           <p className="gradient-text font-bold text-sm">{format(p.salePrice ?? p.price)}</p>
           {p.salePrice && <p className="text-white/30 text-xs line-through">{format(p.price)}</p>}
         </div>
+        {p.salePrice && <SaleTimer />}
       </Link>
     );
   }
@@ -92,20 +100,26 @@ export default function Home() {
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-xs uppercase tracking-[0.4em] font-semibold mb-4" style={{ color: "#e879f9" }}>Our Reach</p>
           <p className="text-white font-bold text-xl md:text-2xl mb-10 max-w-xl mx-auto leading-relaxed">
-            Sextech&apos;s biggest ecosystem &mdash; connecting toys, apps, platforms, and a global community.
+            Premium adult boutique — discreet shipping, body-safe products, and real customer support.
           </p>
           <div className="flex flex-wrap justify-center gap-8 md:gap-24">
             <div className="flex flex-col items-center">
               <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl mb-3"
-                style={{ background: "rgba(232,121,249,0.1)", border: "1px solid rgba(232,121,249,0.2)" }}>👥</div>
-              <p className="gradient-text font-black text-5xl md:text-6xl tracking-tight">7M+</p>
-              <p className="text-white/50 text-sm font-semibold mt-2 uppercase tracking-widest">Users</p>
+                style={{ background: "rgba(232,121,249,0.1)", border: "1px solid rgba(232,121,249,0.2)" }}>🛍️</div>
+              <p className="gradient-text font-black text-5xl md:text-6xl tracking-tight">2.4K+</p>
+              <p className="text-white/50 text-sm font-semibold mt-2 uppercase tracking-widest">Happy Customers</p>
             </div>
             <div className="flex flex-col items-center">
               <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl mb-3"
                 style={{ background: "rgba(232,121,249,0.1)", border: "1px solid rgba(232,121,249,0.2)" }}>🌍</div>
-              <p className="gradient-text font-black text-5xl md:text-6xl tracking-tight">60+</p>
-              <p className="text-white/50 text-sm font-semibold mt-2 uppercase tracking-widest">Countries</p>
+              <p className="gradient-text font-black text-5xl md:text-6xl tracking-tight">35+</p>
+              <p className="text-white/50 text-sm font-semibold mt-2 uppercase tracking-widest">Countries Served</p>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl mb-3"
+                style={{ background: "rgba(232,121,249,0.1)", border: "1px solid rgba(232,121,249,0.2)" }}>⭐</div>
+              <p className="gradient-text font-black text-5xl md:text-6xl tracking-tight">4.9</p>
+              <p className="text-white/50 text-sm font-semibold mt-2 uppercase tracking-widest">Avg Rating</p>
             </div>
           </div>
         </div>
@@ -136,6 +150,51 @@ export default function Home() {
           {bestSellers.map(p => <ProductCard key={p.id} p={p} />)}
         </div>
       </section>
+
+      {/* Bundles promo banner */}
+      {bundles.length > 0 && (
+        <section className="mx-3 md:mx-6 mb-8 rounded-2xl p-6 md:p-10 relative overflow-hidden"
+          style={{ background: "linear-gradient(135deg, rgba(232,121,249,0.15), rgba(244,63,143,0.1))", border: "1px solid rgba(232,121,249,0.25)" }}>
+          <div className="max-w-4xl mx-auto">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+              <div>
+                <p className="text-xs uppercase tracking-[0.4em] mb-2" style={{ color: "#e879f9" }}>🎁 Save More</p>
+                <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Bundle & Save Up To 30%</h2>
+                <p className="text-white/50 text-sm">Curated sets handpicked to work together. Get more, spend less.</p>
+              </div>
+              <div className="flex gap-4 shrink-0">
+                {bundles.slice(0, 2).map(p => (
+                  <Link key={p.id} href={`/shop/${p.id}`} className="card p-3 w-28 flex flex-col items-center text-center">
+                    <div className="relative w-16 h-16 rounded-xl overflow-hidden mb-2" style={{ background: "rgba(232,121,249,0.08)" }}>
+                      <Image src={p.image} alt={p.name} fill className="object-cover" />
+                    </div>
+                    <p className="text-white text-[10px] font-bold leading-tight mb-1">{p.name}</p>
+                    <p className="gradient-text font-bold text-xs">{format(p.salePrice ?? p.price)}</p>
+                    {p.salePrice && <p className="text-white/30 text-[10px] line-through">{format(p.price)}</p>}
+                  </Link>
+                ))}
+              </div>
+              <Link href="/shop" className="btn-primary px-8 py-3 text-sm shrink-0">Shop Bundles →</Link>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* New Arrivals */}
+      {newArrivals.length > 0 && (
+        <section className="max-w-6xl mx-auto px-4 md:px-6 pb-14 md:pb-20">
+          <div className="flex items-end justify-between mb-10">
+            <div>
+              <p className="text-xs uppercase tracking-[0.4em] mb-2" style={{ color: "#e879f9" }}>✨ Just Dropped</p>
+              <h2 className="text-3xl font-bold text-white">New Arrivals</h2>
+            </div>
+            <Link href="/shop" className="text-sm font-semibold hover:text-white transition-colors" style={{ color: "#e879f9" }}>View All →</Link>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+            {newArrivals.map(p => <ProductCard key={p.id} p={p} />)}
+          </div>
+        </section>
+      )}
 
       {/* Featured Products */}
       <section className="max-w-6xl mx-auto px-4 md:px-6 pb-14 md:pb-20">
@@ -183,6 +242,33 @@ export default function Home() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us */}
+      <section className="max-w-5xl mx-auto px-4 md:px-6 py-14 md:py-20">
+        <div className="text-center mb-12">
+          <p className="text-xs uppercase tracking-[0.4em] mb-2" style={{ color: "#e879f9" }}>Why Us</p>
+          <h2 className="text-3xl font-bold text-white">Why Choose LuxePlay?</h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {[
+            { icon: "🔒", title: "Total Privacy", desc: "Plain box, generic return address, zero traces. Your order is your secret." },
+            { icon: "✅", title: "Body-Safe Guaranteed", desc: "Every product is vetted for medical-grade, body-safe materials. No cheap knockoffs." },
+            { icon: "💬", title: "Real Human Support", desc: "Message us on Telegram and a real person replies — fast, friendly, no judgment." },
+            { icon: "🌍", title: "Ships Worldwide", desc: "We deliver to 35+ countries. Wherever you are, we'll get it to you discreetly." },
+            { icon: "⭐", title: "Curated Collection", desc: "Every product is handpicked. We only sell what we'd use ourselves." },
+            { icon: "🎁", title: "Loyalty Rewards", desc: "Earn points on every order. Redeem them for discounts on future purchases." },
+          ].map(w => (
+            <div key={w.title} className="card p-6 flex gap-4">
+              <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl shrink-0"
+                style={{ background: "rgba(232,121,249,0.1)", border: "1px solid rgba(232,121,249,0.2)" }}>{w.icon}</div>
+              <div>
+                <h3 className="font-bold text-white mb-1">{w.title}</h3>
+                <p className="text-white/50 text-sm leading-relaxed">{w.desc}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
