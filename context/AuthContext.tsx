@@ -1,5 +1,14 @@
 "use client";
 import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+  updateProfile,
+  type User as FirebaseUser,
+} from "firebase/auth";
+import { auth } from "@/lib/firebase";
 
 export type User = { name: string; email: string };
 
@@ -18,53 +27,41 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem("luxeplay_user");
-      if (saved) setUser(JSON.parse(saved));
-    } catch {}
-    setLoading(false);
+    const unsub = onAuthStateChanged(auth, (u: FirebaseUser | null) => {
+      setUser(u ? { name: u.displayName ?? u.email?.split("@")[0] ?? "User", email: u.email ?? "" } : null);
+      setLoading(false);
+    });
+    return () => unsub();
   }, []);
 
   async function signup(name: string, email: string, password: string): Promise<string | null> {
     if (!name.trim()) return "Please enter your name.";
-    if (!email.trim()) return "Please enter your email.";
     if (password.length < 6) return "Password must be at least 6 characters.";
     try {
-      const accounts = JSON.parse(localStorage.getItem("luxeplay_accounts") || "[]");
-      if (accounts.find((a: { email: string }) => a.email.toLowerCase() === email.toLowerCase())) {
-        return "An account with this email already exists.";
-      }
-      accounts.push({ name, email: email.toLowerCase(), password });
-      localStorage.setItem("luxeplay_accounts", JSON.stringify(accounts));
-      const u = { name, email: email.toLowerCase() };
-      localStorage.setItem("luxeplay_user", JSON.stringify(u));
-      setUser(u);
-    } catch {
+      const { user: u } = await createUserWithEmailAndPassword(auth, email, password);
+      await updateProfile(u, { displayName: name });
+      setUser({ name, email: u.email ?? "" });
+      return null;
+    } catch (e: unknown) {
+      const code = (e as { code?: string }).code;
+      if (code === "auth/email-already-in-use") return "An account with this email already exists.";
+      if (code === "auth/invalid-email") return "Invalid email address.";
+      if (code === "auth/weak-password") return "Password must be at least 6 characters.";
       return "Something went wrong. Please try again.";
     }
-    return null;
   }
 
   async function login(email: string, password: string): Promise<string | null> {
     try {
-      const accounts = JSON.parse(localStorage.getItem("luxeplay_accounts") || "[]");
-      const match = accounts.find(
-        (a: { email: string; password: string }) =>
-          a.email.toLowerCase() === email.toLowerCase() && a.password === password
-      );
-      if (!match) return "Invalid email or password.";
-      const u = { name: match.name, email: match.email };
-      localStorage.setItem("luxeplay_user", JSON.stringify(u));
-      setUser(u);
+      await signInWithEmailAndPassword(auth, email, password);
+      return null;
     } catch {
-      return "Something went wrong. Please try again.";
+      return "Invalid email or password.";
     }
-    return null;
   }
 
   async function logout() {
-    localStorage.removeItem("luxeplay_user");
-    setUser(null);
+    await signOut(auth);
   }
 
   return <Ctx.Provider value={{ user, loading, login, signup, logout }}>{children}</Ctx.Provider>;
