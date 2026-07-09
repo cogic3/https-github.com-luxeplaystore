@@ -25,7 +25,6 @@ export default function AuthModal({ onClose }: Props) {
       : await signup(name, email, password);
     setLoading(false);
     if (err) { setError(err); return; }
-    if (tab === "signup") { setStep("confirm"); return; }
     onClose();
   }
 
