@@ -94,11 +94,14 @@ export default function Footer() {
           <p className="text-white font-semibold text-sm mb-4">Shop</p>
           <div className="flex flex-col gap-2.5 text-sm text-white/40">
             <Link href="/shop" className="hover:text-white transition-colors">All Products</Link>
-            <Link href="/wishlist" className="hover:text-white transition-colors">Wishlist</Link>
+            <Link href="/shop" className="hover:text-white transition-colors">🎁 Bundles</Link>
             <Link href="/shop" className="hover:text-white transition-colors">Vibrators</Link>
             <Link href="/shop" className="hover:text-white transition-colors">Dildos</Link>
             <Link href="/shop" className="hover:text-white transition-colors">Machines</Link>
             <Link href="/shop" className="hover:text-white transition-colors">Accessories</Link>
+            <Link href="/shop" className="hover:text-white transition-colors">Costumes</Link>
+            <Link href="/wishlist" className="hover:text-white transition-colors">My Wishlist</Link>
+            <Link href="/giftcards" className="hover:text-white transition-colors">Gift Cards</Link>
           </div>
         </div>
 
@@ -111,6 +114,7 @@ export default function Footer() {
             <Link href="/faq" className="hover:text-white transition-colors">FAQ</Link>
             <Link href="/contact" className="hover:text-white transition-colors">Contact Us</Link>
             <Link href="/tracking" className="hover:text-white transition-colors">Track Order</Link>
+            <Link href="/referral" className="hover:text-white transition-colors">Refer & Earn</Link>
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
           </div>

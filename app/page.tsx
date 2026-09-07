@@ -1,6 +1,11 @@
-"use client";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { useState } from "react";
+
+export const metadata: Metadata = {
+  title: "Shop — LuxePlay | Premium Adult Toys",
+  description: "Browse our full collection of premium, body-safe adult toys, costumes, and accessories. Discreet worldwide shipping.",
+};
 import { products } from "@/lib/products";
 import { useStore } from "@/context/StoreContext";
 import { useCurrency } from "@/context/CurrencyContext";

@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Contact Us — LuxePlay",
+  description: "Get in touch with LuxePlay via Telegram. 24/7 support for orders, questions, and shipping.",
+};
 
 export default function Contact() {
   return (

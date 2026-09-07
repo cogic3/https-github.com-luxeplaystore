@@ -84,6 +84,7 @@ export default function Navbar() {
             <nav className="hidden md:flex items-center gap-8 text-sm text-white/60">
               <Link href="/" className="hover:text-white transition-colors">Home</Link>
               <Link href="/shop" className="hover:text-white transition-colors">Shop</Link>
+              <Link href="/shipping" className="hover:text-white transition-colors">Shipping</Link>
               <Link href="/faq" className="hover:text-white transition-colors">FAQ</Link>
               <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
             </nav>
@@ -180,6 +181,8 @@ export default function Navbar() {
             <Link href="/" onClick={() => setOpen(false)} className="hover:text-white transition-colors">Home</Link>
             <Link href="/shop" onClick={() => setOpen(false)} className="hover:text-white transition-colors">Shop</Link>
             <Link href="/wishlist" onClick={() => setOpen(false)} className="hover:text-white transition-colors">Wishlist {wishlist.length > 0 && `(${wishlist.length})`}</Link>
+            <Link href="/shipping" onClick={() => setOpen(false)} className="hover:text-white transition-colors">Shipping Info</Link>
+            <Link href="/referral" onClick={() => setOpen(false)} className="hover:text-white transition-colors">Refer & Earn 🎁</Link>
             <Link href="/faq" onClick={() => setOpen(false)} className="hover:text-white transition-colors">FAQ</Link>
             <Link href="/contact" onClick={() => setOpen(false)} className="hover:text-white transition-colors">Contact</Link>
             {user && (

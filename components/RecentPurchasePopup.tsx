@@ -1,53 +1,52 @@
 "use client";
 import { useEffect, useState } from "react";
-import { products } from "@/lib/products";
-import Image from "next/image";
 
-const NAMES = ["Alex", "Jordan", "Sam", "Riley", "Morgan", "Casey", "Taylor", "Jamie", "Drew", "Avery"];
-const LOCATIONS = ["New York", "London", "Toronto", "Sydney", "Berlin", "Paris", "LA", "Miami", "Tokyo", "Amsterdam"];
-
-function randomItem() {
-  const p = products[Math.floor(Math.random() * products.length)];
-  const name = NAMES[Math.floor(Math.random() * NAMES.length)];
-  const loc = LOCATIONS[Math.floor(Math.random() * LOCATIONS.length)];
-  const mins = Math.floor(Math.random() * 8) + 1;
-  return { p, name, loc, mins };
-}
+const PURCHASES = [
+  { name: "J.M.", location: "New York, US", product: "Velvo Vibrator", time: "2 min ago" },
+  { name: "A.R.", location: "London, UK", product: "Sissy Maid Costume", time: "5 min ago" },
+  { name: "T.K.", location: "Toronto, CA", product: "Pleasure Bundle", time: "8 min ago" },
+  { name: "S.D.", location: "Sydney, AU", product: "Bondage Starter Kit", time: "11 min ago" },
+  { name: "M.L.", location: "Berlin, DE", product: "Lapis Strap-on", time: "14 min ago" },
+  { name: "R.B.", location: "Dubai, AE", product: "Chastity Cage", time: "17 min ago" },
+  { name: "C.D.", location: "Lagos, NG", product: "Loyalty Costume", time: "20 min ago" },
+  { name: "P.W.", location: "Paris, FR", product: "Wand Massager", time: "23 min ago" },
+  { name: "K.O.", location: "Nairobi, KE", product: "Sissy Starter Bundle", time: "26 min ago" },
+  { name: "D.F.", location: "Amsterdam, NL", product: "ThrustPro Machine", time: "29 min ago" },
+];
 
 export default function RecentPurchasePopup() {
+  const [current, setCurrent] = useState<typeof PURCHASES[0] | null>(null);
   const [visible, setVisible] = useState(false);
-  const [item, setItem] = useState(randomItem);
+  const [idx, setIdx] = useState(0);
 
   useEffect(() => {
-    const first = setTimeout(() => {
-      setItem(randomItem());
-      setVisible(true);
-      setTimeout(() => setVisible(false), 4500);
-    }, 8000);
-
-    const interval = setInterval(() => {
-      setItem(randomItem());
-      setVisible(true);
-      setTimeout(() => setVisible(false), 4500);
-    }, 25000);
-
-    return () => { clearTimeout(first); clearInterval(interval); };
+    // Start after 6s, then cycle every 12s
+    const initial = setTimeout(() => showNext(0), 6000);
+    return () => clearTimeout(initial);
   }, []);
 
-  if (!visible) return null;
+  function showNext(i: number) {
+    const item = PURCHASES[i % PURCHASES.length];
+    setCurrent(item);
+    setVisible(true);
+    setTimeout(() => setVisible(false), 4000);
+    setTimeout(() => showNext(i + 1), 12000);
+  }
+
+  if (!current || !visible) return null;
 
   return (
-    <div className="fixed bottom-20 left-4 z-50 flex items-center gap-3 px-4 py-3 rounded-2xl shadow-2xl"
-      style={{ background: "rgba(10,0,16,0.95)", border: "1px solid rgba(232,121,249,0.25)", maxWidth: "280px", backdropFilter: "blur(16px)" }}>
-      <div className="relative w-12 h-12 rounded-xl overflow-hidden shrink-0" style={{ background: "rgba(232,121,249,0.08)" }}>
-        <Image src={item.p.image} alt={item.p.name} fill className="object-cover" />
+    <div className="fixed bottom-20 left-4 z-40 flex items-center gap-3 px-4 py-3 rounded-2xl transition-all"
+      style={{ background: "rgba(10,0,16,0.95)", border: "1px solid rgba(232,121,249,0.2)", boxShadow: "0 8px 32px rgba(0,0,0,0.4)", maxWidth: "280px" }}>
+      <div className="w-9 h-9 rounded-full shrink-0 flex items-center justify-center text-sm font-bold text-white"
+        style={{ background: "linear-gradient(135deg,#e879f9,#f43f8f)" }}>
+        {current.name[0]}
       </div>
-      <div className="flex-1 min-w-0">
-        <p className="text-white font-semibold text-xs leading-tight">{item.name} from {item.loc}</p>
-        <p className="text-white/50 text-[11px] truncate">just bought <span style={{ color: "#e879f9" }}>{item.p.name}</span></p>
-        <p className="text-white/30 text-[10px] mt-0.5">{item.mins} min ago</p>
+      <div>
+        <p className="text-white text-xs font-semibold">{current.name} from {current.location}</p>
+        <p className="text-white/50 text-[10px]">just bought <span className="text-white/70 font-medium">{current.product}</span></p>
+        <p className="text-[10px] mt-0.5" style={{ color: "#e879f9" }}>{current.time}</p>
       </div>
-      <button onClick={() => setVisible(false)} className="text-white/20 hover:text-white/50 transition-colors text-lg leading-none shrink-0">×</button>
     </div>
   );
 }

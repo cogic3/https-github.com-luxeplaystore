@@ -9,6 +9,10 @@ import CookieBanner from "@/components/CookieBanner";
 import CountdownBanner from "@/components/CountdownBanner";
 import ScrollToTop from "@/components/ScrollToTop";
 import PageLoader from "@/components/PageLoader";
+import MobileNav from "@/components/MobileNav";
+import ExitIntent from "@/components/ExitIntent";
+import SpinWheel from "@/components/SpinWheel";
+import AbandonedCart from "@/components/AbandonedCart";
 import RecentPurchasePopup from "@/components/RecentPurchasePopup";
 import PushNotificationPrompt from "@/components/PushNotificationPrompt";
 import { CartProvider } from "@/context/CartContext";
@@ -37,13 +41,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <PageLoader />
                 <CountdownBanner />
                 <Navbar />
-                <main>{children}</main>
+                <main className="pb-16 md:pb-0">{children}</main>
                 <Footer />
                 <TelegramFloat />
                 <ScrollToTop />
                 <CookieBanner />
                 <RecentPurchasePopup />
                 <PushNotificationPrompt />
+                <ExitIntent />
+                <SpinWheel />
+                <AbandonedCart />
+                <MobileNav />
               </AgeGate>
               </AuthProvider>
             </StoreProvider>

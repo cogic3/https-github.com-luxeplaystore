@@ -1,3 +1,10 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Terms of Service — LuxePlay",
+  description: "LuxePlay terms of service. Adults 18+ only. All sales final. Discreet worldwide shipping.",
+};
+
 export default function Terms() {
   return (
     <div className="min-h-screen pt-24 md:pt-28 pb-24 px-4 md:px-6 max-w-3xl mx-auto">

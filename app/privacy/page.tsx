@@ -1,3 +1,10 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy — LuxePlay",
+  description: "LuxePlay privacy policy. Your data is never shared. Discreet shipping and anonymous payments.",
+};
+
 export default function Privacy() {
   return (
     <div className="min-h-screen pt-24 md:pt-28 pb-24 px-4 md:px-6 max-w-3xl mx-auto">

@@ -14,12 +14,35 @@ import SaleTimer from "@/components/SaleTimer";
 import { Star, Heart, ShoppingBag, Users, ArrowLeft, Share2, Check } from "lucide-react";
 
 const fakeReviews = [
-  { name: "J.M.", text: "Absolutely incredible. Delivery was discreet and exactly as described. Already ordered again.", rating: 5 },
-  { name: "A.R.", text: "Top quality. Packaging was plain with no hints of what's inside. Highly recommend.", rating: 5 },
-  { name: "T.K.", text: "Exceeded expectations. The quality is premium and it feels amazing. Worth every penny.", rating: 5 },
-  { name: "S.D.", text: "Super fast response on Telegram and smooth transaction. Product is perfect.", rating: 4 },
-  { name: "M.L.", text: "Been ordering from here for months. Consistent quality and great support.", rating: 5 },
+  { name: "J.M.", text: "Absolutely incredible. Delivery was discreet and exactly as described. Already ordered again.", rating: 5, date: "2 days ago" },
+  { name: "A.R.", text: "Top quality. Packaging was plain with no hints of what's inside. Highly recommend.", rating: 5, date: "1 week ago" },
+  { name: "T.K.", text: "Exceeded expectations. The quality is premium and it feels amazing. Worth every penny.", rating: 5, date: "2 weeks ago" },
+  { name: "S.D.", text: "Super fast response on Telegram and smooth transaction. Product is perfect.", rating: 4, date: "3 weeks ago" },
+  { name: "M.L.", text: "Been ordering from here for months. Consistent quality and great support.", rating: 5, date: "1 month ago" },
 ];
+
+const FREQUENTLY_BOUGHT: Record<number, number[]> = {
+  1: [3, 14, 18],  // Velvo → Lapis, Butt Plug Set, Remote Egg
+  2: [1, 14, 20],  // Gravity → Velvo, Butt Plug, Prostate
+  3: [1, 15, 13],  // Lapis → Velvo, Collar, Bondage Kit
+  4: [13, 15, 12], // Machine → Bondage, Collar, Chastity
+  5: [6, 8, 9],    // Costume 1 → Long, Maid, Loyalty
+  6: [5, 8, 9],
+  7: [5, 6, 8],
+  8: [5, 6, 9],
+  9: [8, 6, 10],
+  10: [5, 6, 8],   // Sissy Bundle → costumes
+  11: [1, 2, 3],   // Pleasure Bundle → toys
+  12: [15, 13, 4], // Chastity → Collar, Bondage, Machine
+  13: [15, 12, 14],
+  14: [13, 15, 20],
+  15: [12, 13, 4],
+  16: [1, 18, 3],
+  17: [14, 20, 2],
+  18: [1, 16, 3],
+  19: [12, 13, 15],
+  20: [14, 2, 17],
+};
 
 export default function ProductDetail() {
   const params = useParams();
@@ -242,6 +265,48 @@ export default function ProductDetail() {
         </div>
       </div>
 
+      {/* Frequently Bought Together */}
+      {(() => {
+        const ids = FREQUENTLY_BOUGHT[product!.id] ?? [];
+        const fbt = ids.map(id => products.find(p => p.id === id)).filter(Boolean) as typeof products;
+        if (fbt.length === 0) return null;
+        const bundleTotal = unitPrice + fbt.reduce((s, p) => s + (p.salePrice ?? p.price), 0);
+        const bundleSave = Math.round(bundleTotal * 0.1);
+        return (
+          <div className="mb-20">
+            <p className="text-xs uppercase tracking-[0.4em] mb-2" style={{ color: "#e879f9" }}>🛍️ Often Bought Together</p>
+            <h2 className="text-2xl font-bold text-white mb-8">Frequently Bought Together</h2>
+            <div className="card p-6" style={{ border: "1px solid rgba(232,121,249,0.2)" }}>
+              <div className="flex flex-wrap items-center gap-4 mb-6">
+                {[product!, ...fbt].map((p, i) => (
+                  <div key={p.id} className="flex items-center gap-3">
+                    {i > 0 && <span className="text-white/30 text-xl font-bold">+</span>}
+                    <Link href={`/shop/${p.id}`} className="flex flex-col items-center gap-2 group">
+                      <div className="relative w-16 h-16 rounded-xl overflow-hidden"
+                        style={{ background: "rgba(232,121,249,0.06)", border: "1px solid rgba(232,121,249,0.15)" }}>
+                        <Image src={p.image} alt={p.name} fill className="object-cover" />
+                      </div>
+                      <p className="text-[10px] text-white/60 text-center max-w-[64px] leading-tight group-hover:text-white transition-colors">{p.name}</p>
+                      <p className="text-[10px] gradient-text font-bold">{format(p.salePrice ?? p.price)}</p>
+                    </Link>
+                  </div>
+                ))}
+              </div>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div>
+                  <p className="text-white font-bold">Bundle Total: <span className="gradient-text">{format(bundleTotal)}</span></p>
+                  <p className="text-xs mt-0.5" style={{ color: "#34d399" }}>💡 Buy all together and save ~{format(bundleSave)}</p>
+                </div>
+                <a href="https://t.me/luxeplayadmin" target="_blank" rel="noopener noreferrer"
+                  className="btn-primary px-8 py-2.5 text-sm">
+                  Order Bundle via Telegram
+                </a>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
+
       {/* Reviews */}
       <div className="mb-20">
         <p className="text-xs uppercase tracking-[0.4em] mb-2" style={{ color: "#e879f9" }}>Verified Buyers</p>
@@ -249,14 +314,20 @@ export default function ProductDetail() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {fakeReviews.map((r, i) => (
             <div key={i} className="card p-5">
-              <div className="flex gap-0.5 mb-3">
-                {[1,2,3,4,5].map(s => (
-                  <Star key={s} size={12} fill={s <= r.rating ? "#facc15" : "none"}
-                    className={s <= r.rating ? "text-yellow-400" : "text-white/20"} />
-                ))}
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex gap-0.5">
+                  {[1,2,3,4,5].map(s => (
+                    <Star key={s} size={12} fill={s <= r.rating ? "#facc15" : "none"}
+                      className={s <= r.rating ? "text-yellow-400" : "text-white/20"} />
+                  ))}
+                </div>
+                <span className="text-[10px] px-2 py-0.5 rounded-full font-semibold" style={{ background: "rgba(52,211,153,0.1)", color: "#34d399" }}>✅ Verified Purchase</span>
               </div>
               <p className="text-white/60 text-sm leading-relaxed mb-4 italic">&ldquo;{r.text}&rdquo;</p>
-              <p className="text-white/30 text-xs font-semibold uppercase tracking-widest">{r.name}</p>
+              <div className="flex items-center justify-between">
+                <p className="text-white/40 text-xs font-semibold uppercase tracking-widest">{r.name}</p>
+                <p className="text-white/25 text-xs">{r.date}</p>
+              </div>
             </div>
           ))}
         </div>
