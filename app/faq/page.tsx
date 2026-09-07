@@ -1,12 +1,7 @@
 "use client";
-import type { Metadata } from "next";
+"use client";
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
-
-export const metadata: Metadata = {
-  title: "FAQ — LuxePlay",
-  description: "Answers to common questions about shipping, payment, privacy, and returns at LuxePlay.",
-};
 
 const faqs = [
   {
