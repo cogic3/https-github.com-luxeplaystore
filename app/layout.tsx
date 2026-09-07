@@ -10,6 +10,7 @@ import CountdownBanner from "@/components/CountdownBanner";
 import ScrollToTop from "@/components/ScrollToTop";
 import PageLoader from "@/components/PageLoader";
 import MobileNav from "@/components/MobileNav";
+import ChatBox from "@/components/ChatBox";
 import ExitIntent from "@/components/ExitIntent";
 import SpinWheel from "@/components/SpinWheel";
 import AbandonedCart from "@/components/AbandonedCart";
@@ -52,6 +53,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <SpinWheel />
                 <AbandonedCart />
                 <MobileNav />
+                <ChatBox />
               </AgeGate>
               </AuthProvider>
             </StoreProvider>

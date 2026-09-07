@@ -17,10 +17,8 @@ const PURCHASES = [
 export default function RecentPurchasePopup() {
   const [current, setCurrent] = useState<typeof PURCHASES[0] | null>(null);
   const [visible, setVisible] = useState(false);
-  const [idx, setIdx] = useState(0);
 
   useEffect(() => {
-    // Start after 6s, then cycle every 12s
     const initial = setTimeout(() => showNext(0), 6000);
     return () => clearTimeout(initial);
   }, []);
@@ -36,15 +34,19 @@ export default function RecentPurchasePopup() {
   if (!current || !visible) return null;
 
   return (
-    <div className="fixed bottom-20 left-4 z-40 flex items-center gap-3 px-4 py-3 rounded-2xl transition-all"
-      style={{ background: "rgba(10,0,16,0.95)", border: "1px solid rgba(232,121,249,0.2)", boxShadow: "0 8px 32px rgba(0,0,0,0.4)", maxWidth: "280px" }}>
+    <div className="fixed bottom-20 left-4 z-40 flex items-center gap-3 px-4 py-3 rounded-2xl card"
+      style={{ border: "1px solid rgba(232,121,249,0.2)", boxShadow: "0 8px 32px rgba(0,0,0,0.2)", maxWidth: "280px" }}>
       <div className="w-9 h-9 rounded-full shrink-0 flex items-center justify-center text-sm font-bold text-white"
         style={{ background: "linear-gradient(135deg,#e879f9,#f43f8f)" }}>
         {current.name[0]}
       </div>
       <div>
-        <p className="text-white text-xs font-semibold">{current.name} from {current.location}</p>
-        <p className="text-white/50 text-[10px]">just bought <span className="text-white/70 font-medium">{current.product}</span></p>
+        <p className="text-xs font-semibold" style={{ color: "var(--color-text)" }}>
+          {current.name} from {current.location}
+        </p>
+        <p className="text-[10px]" style={{ color: "var(--color-text-50)" }}>
+          just bought <span className="font-medium" style={{ color: "var(--color-text-70)" }}>{current.product}</span>
+        </p>
         <p className="text-[10px] mt-0.5" style={{ color: "#e879f9" }}>{current.time}</p>
       </div>
     </div>

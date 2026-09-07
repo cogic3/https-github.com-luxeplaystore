@@ -38,18 +38,18 @@ export default function ShippingPage() {
         ].map(b => (
           <div key={b.title} className="card p-5 text-center">
             <p className="text-3xl mb-2">{b.icon}</p>
-            <p className="font-bold text-white text-sm mb-1">{b.title}</p>
-            <p className="text-white/40 text-xs">{b.desc}</p>
+            <p className="font-bold text-sm mb-1" style={{ color: "var(--color-text)" }}>{b.title}</p>
+            <p className="text-xs" style={{ color: "var(--color-text-40)" }}>{b.desc}</p>
           </div>
         ))}
       </div>
 
       {/* Delivery table */}
       <p className="text-xs uppercase tracking-[0.4em] mb-3" style={{ color: "#e879f9" }}>Estimated Delivery Times</p>
-      <h2 className="text-2xl font-bold text-white mb-6">By Region</h2>
+      <h2 className="text-2xl font-bold mb-6" style={{ color: "var(--color-text)" }}>By Region</h2>
       <div className="card overflow-hidden mb-14">
-        <div className="grid grid-cols-4 px-5 py-3 text-xs uppercase tracking-widest text-white/30 border-b"
-          style={{ borderColor: "rgba(232,121,249,0.1)" }}>
+        <div className="grid grid-cols-4 px-5 py-3 text-xs uppercase tracking-widest border-b"
+          style={{ borderColor: "var(--color-border-soft)", color: "var(--color-text-30)" }}>
           <span>Region</span>
           <span>Est. Time</span>
           <span>Shipping</span>
@@ -58,18 +58,18 @@ export default function ShippingPage() {
         {regions.map((r, i) => (
           <div key={r.region}
             className="grid grid-cols-4 px-5 py-4 text-sm items-center border-b last:border-0"
-            style={{ borderColor: "rgba(232,121,249,0.06)", background: i % 2 === 0 ? "transparent" : "rgba(232,121,249,0.02)" }}>
-            <span className="text-white font-medium flex items-center gap-2">{r.flag} {r.region}</span>
-            <span className="text-white/60">{r.time}</span>
+            style={{ borderColor: "var(--color-border-soft)", background: i % 2 === 0 ? "transparent" : "var(--color-section-bg)" }}>
+            <span className="font-medium flex items-center gap-2" style={{ color: "var(--color-text)" }}>{r.flag} {r.region}</span>
+            <span style={{ color: "var(--color-text-60)" }}>{r.time}</span>
             <span className="gradient-text font-bold">{r.cost}</span>
-            <span className="hidden md:block text-white/35 text-xs">{r.note}</span>
+            <span className="hidden md:block text-xs" style={{ color: "var(--color-text-35)" }}>{r.note}</span>
           </div>
         ))}
       </div>
 
       {/* Process */}
       <p className="text-xs uppercase tracking-[0.4em] mb-3" style={{ color: "#e879f9" }}>How It Works</p>
-      <h2 className="text-2xl font-bold text-white mb-8">Order Process</h2>
+      <h2 className="text-2xl font-bold mb-8" style={{ color: "var(--color-text)" }}>Order Process</h2>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-5 mb-14">
         {[
           { step: "01", icon: "💳", title: "Pay", desc: "Send Bitcoin or gift card payment." },
@@ -80,15 +80,15 @@ export default function ShippingPage() {
           <div key={s.step} className="card p-5 text-center">
             <p className="text-xs font-bold mb-2" style={{ color: "#e879f9" }}>Step {s.step}</p>
             <p className="text-3xl mb-3">{s.icon}</p>
-            <p className="font-bold text-white text-sm mb-1">{s.title}</p>
-            <p className="text-white/40 text-xs leading-relaxed">{s.desc}</p>
+            <p className="font-bold text-sm mb-1" style={{ color: "var(--color-text)" }}>{s.title}</p>
+            <p className="text-xs leading-relaxed" style={{ color: "var(--color-text-40)" }}>{s.desc}</p>
           </div>
         ))}
       </div>
 
       {/* FAQ */}
-      <div className="card p-8 mb-10" style={{ border: "1px solid rgba(232,121,249,0.15)" }}>
-        <h2 className="font-bold text-white text-lg mb-6">Common Questions</h2>
+      <div className="card p-8 mb-10">
+        <h2 className="font-bold text-lg mb-6" style={{ color: "var(--color-text)" }}>Common Questions</h2>
         <div className="flex flex-col gap-5">
           {[
             { q: "Will my package look suspicious?", a: "No. It ships in a plain brown or white box with no brand names, logos, or any indication of the contents." },
@@ -96,16 +96,16 @@ export default function ShippingPage() {
             { q: "Can I get a faster delivery?", a: "Express shipping may be available for some regions. Message us on Telegram before ordering to check." },
             { q: "Do you ship to PO boxes?", a: "Yes, we can ship to PO boxes in most countries." },
           ].map(item => (
-            <div key={item.q} className="border-b pb-5 last:border-0 last:pb-0" style={{ borderColor: "rgba(232,121,249,0.08)" }}>
-              <p className="font-semibold text-white text-sm mb-1">{item.q}</p>
-              <p className="text-white/50 text-sm leading-relaxed">{item.a}</p>
+            <div key={item.q} className="border-b pb-5 last:border-0 last:pb-0" style={{ borderColor: "var(--color-border-soft)" }}>
+              <p className="font-semibold text-sm mb-1" style={{ color: "var(--color-text)" }}>{item.q}</p>
+              <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-50)" }}>{item.a}</p>
             </div>
           ))}
         </div>
       </div>
 
       <div className="text-center">
-        <p className="text-white/40 text-sm mb-4">Still have questions about shipping?</p>
+        <p className="text-sm mb-4" style={{ color: "var(--color-text-40)" }}>Still have questions about shipping?</p>
         <a href="https://t.me/luxeplayadmin" target="_blank" rel="noopener noreferrer"
           className="btn-primary px-10 py-3 text-sm inline-block">
           Message Us on Telegram

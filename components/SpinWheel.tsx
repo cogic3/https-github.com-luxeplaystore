@@ -36,9 +36,7 @@ export default function SpinWheel() {
     return () => clearTimeout(t);
   }, []);
 
-  useEffect(() => {
-    drawWheel(rotation);
-  }, [rotation]);
+  useEffect(() => { drawWheel(rotation); }, [rotation]);
 
   function drawWheel(rot: number) {
     const canvas = canvasRef.current;
@@ -56,7 +54,7 @@ export default function SpinWheel() {
       ctx.closePath();
       ctx.fillStyle = seg.color;
       ctx.fill();
-      ctx.strokeStyle = "rgba(10,0,16,0.4)";
+      ctx.strokeStyle = "rgba(0,0,0,0.25)";
       ctx.lineWidth = 2;
       ctx.stroke();
 
@@ -71,11 +69,12 @@ export default function SpinWheel() {
     });
 
     // Center circle
+    const bg = getComputedStyle(document.documentElement).getPropertyValue("--bg").trim() || "#0a0010";
     ctx.beginPath();
     ctx.arc(R, R, 22, 0, 2 * Math.PI);
-    ctx.fillStyle = "#0a0010";
+    ctx.fillStyle = bg;
     ctx.fill();
-    ctx.strokeStyle = "rgba(232,121,249,0.4)";
+    ctx.strokeStyle = "rgba(232,121,249,0.5)";
     ctx.lineWidth = 2;
     ctx.stroke();
     ctx.fillStyle = "#e879f9";
@@ -100,12 +99,10 @@ export default function SpinWheel() {
       const current = startRot + (target - startRot) * ease;
       rotRef.current = current;
       setRotation(current);
-
       if (progress < 1) {
         requestAnimationFrame(animate);
       } else {
         setSpinning(false);
-        // Determine winner — pointer is at top (−π/2)
         const normalized = (((-current - Math.PI / 2) % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
         const idx = Math.floor(normalized / ARC) % TOTAL;
         setWon(SEGMENTS[idx].label);
@@ -124,21 +121,21 @@ export default function SpinWheel() {
   if (!show) return null;
 
   return (
-    <div className="fixed inset-0 z-[85] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+    <div className="fixed inset-0 z-[85] flex items-center justify-center p-4 bg-black/70 backdrop-blur-md">
       <div className="card w-full max-w-sm p-6 text-center relative"
         style={{ border: "1px solid rgba(232,121,249,0.3)" }}>
         <button onClick={() => setShow(false)}
-          className="absolute top-4 right-4 text-white/30 hover:text-white transition-colors">
+          className="absolute top-4 right-4 transition-colors hover:opacity-70"
+          style={{ color: "var(--color-text-30)" }}>
           <X size={18} />
         </button>
 
         {!won ? (
           <>
             <p className="text-xs uppercase tracking-[0.4em] mb-1" style={{ color: "#e879f9" }}>🎰 Lucky Spin</p>
-            <h2 className="text-xl font-bold text-white mb-1">Spin to Win a Discount!</h2>
-            <p className="text-white/40 text-xs mb-5">One spin per visit. Good luck! 🍀</p>
+            <h2 className="text-xl font-bold mb-1" style={{ color: "var(--color-text)" }}>Spin to Win a Discount!</h2>
+            <p className="text-xs mb-5" style={{ color: "var(--color-text-40)" }}>One spin per visit. Good luck! 🍀</p>
 
-            {/* Pointer */}
             <div className="relative inline-block mb-2">
               <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1 z-10 w-0 h-0"
                 style={{ borderLeft: "8px solid transparent", borderRight: "8px solid transparent", borderTop: "16px solid #e879f9" }} />
@@ -155,14 +152,18 @@ export default function SpinWheel() {
         ) : (
           <>
             <div className="text-5xl mb-3">🎉</div>
-            <h2 className="text-2xl font-bold text-white mb-1">You Won!</h2>
-            <p className="text-white/50 text-sm mb-5">Use this code at checkout:</p>
+            <h2 className="text-2xl font-bold mb-1" style={{ color: "var(--color-text)" }}>You Won!</h2>
+            <p className="text-sm mb-5" style={{ color: "var(--color-text-50)" }}>Use this code at checkout:</p>
             <div className="rounded-2xl p-4 mb-5 flex items-center justify-between gap-3"
               style={{ background: "rgba(232,121,249,0.08)", border: "1px solid rgba(232,121,249,0.25)" }}>
               <span className="gradient-text font-black text-2xl tracking-widest">{won}</span>
               <button onClick={copyCode}
                 className="text-xs font-bold px-4 py-2 rounded-full transition-all"
-                style={{ background: copied ? "rgba(52,211,153,0.2)" : "rgba(232,121,249,0.15)", color: copied ? "#34d399" : "#e879f9", border: `1px solid ${copied ? "rgba(52,211,153,0.3)" : "rgba(232,121,249,0.3)"}` }}>
+                style={{
+                  background: copied ? "rgba(52,211,153,0.15)" : "rgba(232,121,249,0.15)",
+                  color: copied ? "#34d399" : "#e879f9",
+                  border: `1px solid ${copied ? "rgba(52,211,153,0.3)" : "rgba(232,121,249,0.3)"}`,
+                }}>
                 {copied ? "✓ Copied!" : "Copy"}
               </button>
             </div>

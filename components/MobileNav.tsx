@@ -25,7 +25,7 @@ export default function MobileNav() {
 
   return (
     <nav className="fixed bottom-0 inset-x-0 z-50 md:hidden border-t"
-      style={{ background: "rgba(10,0,16,0.97)", backdropFilter: "blur(16px)", borderColor: "rgba(232,121,249,0.12)" }}>
+      style={{ background: "var(--nav-bg)", backdropFilter: "blur(16px)", borderColor: "var(--color-border-soft)" }}>
       <div className="flex items-center justify-around h-16 px-2">
         {links.map(({ href, icon: Icon, label }) => {
           const active = pathname === href || (href === "/shop" && pathname.startsWith("/shop"));
@@ -34,7 +34,7 @@ export default function MobileNav() {
             <Link key={href} href={href}
               className="flex flex-col items-center justify-center gap-1 flex-1 h-full relative transition-all">
               <div className="relative">
-                <Icon size={20} style={{ color: active ? "#e879f9" : "rgba(255,255,255,0.4)" }} />
+                <Icon size={20} style={{ color: active ? "#e879f9" : "var(--color-text-40)" }} />
                 {badge > 0 && (
                   <span className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full text-[9px] font-bold flex items-center justify-center text-white"
                     style={{ background: "linear-gradient(90deg,#e879f9,#f43f8f)" }}>
@@ -42,7 +42,8 @@ export default function MobileNav() {
                   </span>
                 )}
               </div>
-              <span className="text-[10px] font-medium" style={{ color: active ? "#e879f9" : "rgba(255,255,255,0.35)" }}>
+              <span className="text-[10px] font-medium"
+                style={{ color: active ? "#e879f9" : "var(--color-text-35)" }}>
                 {label}
               </span>
               {active && (
