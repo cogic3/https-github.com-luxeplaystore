@@ -40,7 +40,7 @@ export default function Tracking() {
             We&apos;ve received your request for <span style={{ color: "#e879f9" }}>@{username}</span>.
             Our team will message you on Telegram with your order status shortly.
           </p>
-          <a href="https://t.me/luxeplayadmin" target="_blank" rel="noopener noreferrer"
+          <a href="https://t.me/luxeplay10" target="_blank" rel="noopener noreferrer"
             className="btn-primary px-8 py-3 text-sm inline-block">
             Message Us on Telegram
           </a>

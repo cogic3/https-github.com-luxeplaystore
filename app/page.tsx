@@ -86,7 +86,7 @@ export default function Home() {
         </p>
         <div className="flex flex-col sm:flex-row items-center gap-3 w-full max-w-xs sm:max-w-none justify-center">
           <Link href="/shop" className="btn-primary px-10 py-3.5 text-sm w-full sm:w-auto text-center">Shop Now</Link>
-          <a href="https://t.me/luxeplayadmin" target="_blank" rel="noopener noreferrer"
+          <a href="https://t.me/luxeplay10" target="_blank" rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold transition-all hover:scale-105 w-full sm:w-auto"
             style={{ background: "rgba(232,121,249,0.08)", border: "1px solid rgba(232,121,249,0.2)", color: "#e879f9" }}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 13.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"/></svg>
@@ -317,7 +317,7 @@ export default function Home() {
             <p className="text-xs uppercase tracking-[0.4em] mb-2" style={{ color: "#e879f9" }}>Stay Connected</p>
             <h2 className="text-2xl font-bold text-white mb-2">Shop via Telegram</h2>
             <p className="text-white/50 text-sm mb-6 leading-relaxed">Get exclusive deals, track your orders, and chat with us directly on Telegram. Fast, private, and easy.</p>
-            <a href="https://t.me/luxeplayadmin" target="_blank" rel="noopener noreferrer" className="btn-primary px-8 py-3 text-sm inline-flex items-center gap-2">
+            <a href="https://t.me/luxeplay10" target="_blank" rel="noopener noreferrer" className="btn-primary px-8 py-3 text-sm inline-flex items-center gap-2">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 13.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"/></svg>
               Open Telegram
             </a>

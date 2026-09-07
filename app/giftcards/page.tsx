@@ -23,7 +23,7 @@ export default function GiftCards() {
             )}
             <p className="text-4xl mb-2">🎁</p>
             <p className="gradient-text font-bold text-2xl mb-4">${g.amount}</p>
-            <a href="https://t.me/luxeplayadmin" target="_blank" rel="noopener noreferrer"
+            <a href="https://t.me/luxeplay10" target="_blank" rel="noopener noreferrer"
               className="btn-primary w-full py-2.5 text-xs block">Buy Now</a>
           </div>
         ))}
@@ -47,7 +47,7 @@ export default function GiftCards() {
             </div>
           ))}
         </div>
-        <a href="https://t.me/luxeplayadmin" target="_blank" rel="noopener noreferrer"
+        <a href="https://t.me/luxeplay10" target="_blank" rel="noopener noreferrer"
           className="btn-primary w-full py-3 text-sm text-center block mt-8">
           Purchase via Telegram
         </a>

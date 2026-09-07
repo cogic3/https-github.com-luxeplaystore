@@ -191,7 +191,7 @@ export default function Cart() {
                     {copied ? <><Check size={12} /> Copied</> : <><Copy size={12} /> Copy</>}
                   </button>
                 </div>
-                <a href="https://t.me/luxeplayadmin" target="_blank" rel="noopener noreferrer"
+                <a href="https://t.me/luxeplay10" target="_blank" rel="noopener noreferrer"
                   onClick={saveOrder}
                   className="btn-primary w-full py-3 text-sm text-center block">Confirm Order via Telegram</a>
                 <p className="text-white/25 text-xs text-center mt-3 leading-relaxed">After paying, send us your transaction ID on Telegram.</p>
@@ -221,7 +221,7 @@ export default function Cart() {
                     <p className="text-white/40 text-xs mt-1">{giftFile?.name}</p>
                   </div>
                 )}
-                <a href="https://t.me/luxeplayadmin" target="_blank" rel="noopener noreferrer"
+                <a href="https://t.me/luxeplay10" target="_blank" rel="noopener noreferrer"
                   onClick={saveOrder}
                   className="btn-primary w-full py-3 text-sm text-center block">Confirm Order via Telegram</a>
                 <p className="text-white/25 text-xs text-center mt-3 leading-relaxed">After uploading, message us on Telegram to confirm.</p>

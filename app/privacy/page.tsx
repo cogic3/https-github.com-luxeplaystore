@@ -18,7 +18,7 @@ export default function Privacy() {
           { title: "Data Security", body: "All communications between you and LuxePlay are conducted via Telegram, which uses end-to-end encryption. We do not store sensitive data on servers." },
           { title: "Cookies", body: "We use minimal cookies to improve your browsing experience (e.g. remembering your currency preference and age verification). You can decline cookies at any time." },
           { title: "Your Rights", body: "You have the right to request deletion of any personal information we hold about you. Contact us on Telegram to make such a request." },
-          { title: "Contact", body: "For any privacy-related concerns, please message us on Telegram at @luxeplayadmin." },
+          { title: "Contact", body: "For any privacy-related concerns, please message us on Telegram at @luxeplay10." },
         ].map(s => (
           <div key={s.title}>
             <h2 className="text-white font-bold text-base mb-2">{s.title}</h2>

@@ -21,7 +21,7 @@ export default function Contact() {
           </div>
           <h3 className="font-bold text-white mb-2">Telegram</h3>
           <p className="text-white/40 text-sm mb-5 leading-relaxed">Fastest way to reach us. Message us for orders, questions, or support.</p>
-          <a href="https://t.me/luxeplayadmin" target="_blank" rel="noopener noreferrer" className="btn-primary px-6 py-2.5 text-sm inline-block">
+          <a href="https://t.me/luxeplay10" target="_blank" rel="noopener noreferrer" className="btn-primary px-6 py-2.5 text-sm inline-block">
             Message on Telegram
           </a>
         </div>

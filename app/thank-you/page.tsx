@@ -89,7 +89,7 @@ export default function ThankYou() {
         <p className="text-xs uppercase tracking-[0.4em] mb-4" style={{ color: "#e879f9" }}>What Happens Next</p>
         <div className="flex flex-col gap-4">
           {[
-            { icon: "💬", title: "Message us on Telegram", desc: "Send your order reference and payment confirmation to @luxeplayadmin." },
+            { icon: "💬", title: "Message us on Telegram", desc: "Send your order reference and payment confirmation to @luxeplay10." },
             { icon: "✅", title: "We confirm your order", desc: "We'll verify payment and confirm your order within a few hours." },
             { icon: "📦", title: "We pack & ship", desc: "Your order is packed discreetly and dispatched within 1–3 business days." },
             { icon: "🚪", title: "Delivered to your door", desc: "Plain box, no labels. We'll update you via Telegram when it ships." },
@@ -107,7 +107,7 @@ export default function ThankYou() {
 
       {/* CTAs */}
       <div className="flex flex-col gap-3">
-        <a href="https://t.me/luxeplayadmin" target="_blank" rel="noopener noreferrer"
+        <a href="https://t.me/luxeplay10" target="_blank" rel="noopener noreferrer"
           className="btn-primary py-3.5 text-sm text-center block">
           💬 Message Us on Telegram
         </a>

@@ -19,7 +19,7 @@ export default function Terms() {
           { title: "Returns & Refunds", body: "Due to the nature of our products, we do not accept returns. If a product arrives damaged or incorrect, contact us within 7 days of delivery and we will resolve the issue." },
           { title: "Limitation of Liability", body: "LuxePlay is not liable for any indirect, incidental, or consequential damages arising from the use of our products or services." },
           { title: "Changes to Terms", body: "We reserve the right to update these terms at any time. Continued use of the site constitutes acceptance of any changes." },
-          { title: "Contact", body: "For any questions about these terms, contact us on Telegram at @luxeplayadmin." },
+          { title: "Contact", body: "For any questions about these terms, contact us on Telegram at @luxeplay10." },
         ].map(s => (
           <div key={s.title}>
             <h2 className="text-white font-bold text-base mb-2">{s.title}</h2>

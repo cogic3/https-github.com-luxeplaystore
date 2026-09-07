@@ -297,7 +297,7 @@ export default function ProductDetail() {
                   <p className="text-white font-bold">Bundle Total: <span className="gradient-text">{format(bundleTotal)}</span></p>
                   <p className="text-xs mt-0.5" style={{ color: "#34d399" }}>💡 Buy all together and save ~{format(bundleSave)}</p>
                 </div>
-                <a href="https://t.me/luxeplayadmin" target="_blank" rel="noopener noreferrer"
+                <a href="https://t.me/luxeplay10" target="_blank" rel="noopener noreferrer"
                   className="btn-primary px-8 py-2.5 text-sm">
                   Order Bundle via Telegram
                 </a>

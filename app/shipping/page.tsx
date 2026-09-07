@@ -106,7 +106,7 @@ export default function ShippingPage() {
 
       <div className="text-center">
         <p className="text-sm mb-4" style={{ color: "var(--color-text-40)" }}>Still have questions about shipping?</p>
-        <a href="https://t.me/luxeplayadmin" target="_blank" rel="noopener noreferrer"
+        <a href="https://t.me/luxeplay10" target="_blank" rel="noopener noreferrer"
           className="btn-primary px-10 py-3 text-sm inline-block">
           Message Us on Telegram
         </a>
