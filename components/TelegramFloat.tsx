@@ -1,6 +1,6 @@
 export default function TelegramFloat() {
   return (
-    <a href="https://t.me/luxeplayadmin" target="_blank" rel="noopener noreferrer"
+    <a href="https://t.me/luxeplay10" target="_blank" rel="noopener noreferrer"
       className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-110"
       style={{ background: "linear-gradient(135deg, #e879f9, #f43f8f)", boxShadow: "0 0 24px rgba(232,121,249,0.5)" }}
       title="Contact us on Telegram">

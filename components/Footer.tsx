@@ -81,7 +81,7 @@ export default function Footer() {
         <div className="col-span-2 md:col-span-1">
           <p className="gradient-text font-bold text-xl mb-3">LuxePlay</p>
           <p className="text-white/35 text-sm leading-relaxed mb-4">Premium adult boutique. Discreet, curated, and delivered to your door.</p>
-          <a href="https://t.me/luxeplayadmin" target="_blank" rel="noopener noreferrer"
+          <a href="https://t.me/luxeplay10" target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-xs font-semibold px-4 py-2 rounded-full transition-all hover:scale-105"
             style={{ background: "rgba(232,121,249,0.1)", border: "1px solid rgba(232,121,249,0.2)", color: "#e879f9" }}>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 13.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z" /></svg>

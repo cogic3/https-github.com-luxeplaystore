@@ -219,7 +219,7 @@ export default function ChatBox() {
 
               {/* Telegram CTA */}
               <div className="px-3 pb-2 shrink-0">
-                <a href="https://t.me/luxeplayadmin" target="_blank" rel="noopener noreferrer"
+                <a href="https://t.me/luxeplay10" target="_blank" rel="noopener noreferrer"
                   className="w-full flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-semibold transition-all hover:opacity-80"
                   style={{ background: "rgba(232,121,249,0.08)", border: "1px solid rgba(232,121,249,0.2)", color: "#e879f9" }}>
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">

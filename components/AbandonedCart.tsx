@@ -34,7 +34,7 @@ export default function AbandonedCart() {
       <p className="text-xs mb-4 leading-relaxed" style={{ color: "var(--color-text-50)" }}>
         Message us on Telegram — we&apos;ll hold your cart and answer any questions you have.
       </p>
-      <a href="https://t.me/luxeplayadmin" target="_blank" rel="noopener noreferrer"
+      <a href="https://t.me/luxeplay10" target="_blank" rel="noopener noreferrer"
         className="btn-primary w-full py-2.5 text-xs text-center block">
         Chat with Us on Telegram
       </a>
